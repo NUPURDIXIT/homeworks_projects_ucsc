@@ -1,0 +1,46 @@
+Anne Latner          : B         
+
+Anne Latner2         : A         
+
+Ariana B. Smith      : A         
+
+Ariana B1. Smith     : A         
+
+Arnav Awasthi        : A         
+
+Arunima Tripathi     : A         
+
+Bill Gates           : F         
+
+Bill Gates2          : A         
+
+Emily Gonzales       : B         
+
+Emily Gonzales1      : A         
+
+Escobar Morris       : C         
+
+Escobar Morris1      : A         
+
+Jennifer L           : B         
+
+Jennifer L1          : A         
+
+John                 : A         
+
+Kriti                : A         
+
+Maria 1 Jones        : D         
+
+Maria Jones          : D         
+
+Neha                 : A         
+
+Neha Agarwal         : D         
+
+Priya Paliwal        : A         
+
+Thui Bhu             : A         
+
+Thui Bhu1            : A         
+

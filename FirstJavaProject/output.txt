@@ -1,0 +1,6 @@
+Student # 1 is: "Nupur" whose raw scores are: 100:  100:  99:  100:  99:  100:  98: 
+Student # 2 is: "Amrutha" whose raw scores are: 100:  99:  98:  100:  99:  98:  100: 
+Student # 3 is: "Tina" whose raw scores are: 100:  100:  99:  100:  99:  100:  98: 
+Student # 4 is: "Hari" whose raw scores are: 100:  99:  98:  100:  99:  98:  100: 
+Student # 5 is: "Pooja Singh" whose raw scores are: 100:  100:  99:  100:  99:  100:  98: 
+Student # 6 is: "Ajay" whose raw scores are: 100:  99:  98:  100:  99:  98:  100: 
