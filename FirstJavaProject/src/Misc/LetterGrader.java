@@ -1,6 +1,7 @@
 package Misc;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -11,69 +12,63 @@ import java.io.IOException;
 
 
 public class LetterGrader{
-
+	private String grade;
+	private List<Double> totalScore =new ArrayList<Double>();
+	private List<Integer> scoreQuarter1Total =new ArrayList<Integer>();
+	private List<Integer> scoreQuarter2Total =new ArrayList<Integer>();
+	private List<Integer> scoreQuarter3Total =new ArrayList<Integer>();
+	private List<Integer> scoreQuarter4Total =new ArrayList<Integer>();
+	private List<Integer> scoreMid1Total =new ArrayList<Integer>();
+	private List<Integer> scoreMid2Total =new ArrayList<Integer>();
+	private List<Integer> scoreFinalTotal =new ArrayList<Integer>();
+	
+	//StudentCompare is a class that implements Comparable Interface.
+	//Create a list of students of type StudentCompare
+	private List<StudentCompare> students=new ArrayList<StudentCompare>();
+	
 	/***********************************************************************************************************/
 	/*        Declaration of private variables                     											   */
 	/***********************************************************************************************************/
-	private String grade;
-	private String[] args;
-	private String args0;
-	private String args1;
+	
+	//private String[] args;
+	//private String args0;
+	//private String args1;
 	
 	/***********************************************************************************************************/
 	/*        Default Constructor for class LetterGrader           					           				   */
 	/***********************************************************************************************************/
-	public LetterGrader(){
-		this.grade=grade;
-	}
+//	public LetterGrader(){
+//	}
 	
 	/***********************************************************************************************************/
 	/*        Parameterized Constructor which takes the input file and output file names as the arguments 	   */
 	/***********************************************************************************************************/	
-	public LetterGrader(String args0,String args1){
-		this.args0=args0;
-		this.args1=args1;
+	public LetterGrader(String input){
+		processInputFile(input);
 	}
 	
 	/***********************************************************************************************************/
 	/*        This Method calculates the Average scores of each student                       				   */
 	/***********************************************************************************************************/
-	public void processInputOutputFiles(String[] args){
+	private void processInputFile(String file){
 		
 		//Create an object of input file whose name is stored in args[0]
-		File inputFile=new File(args[0]);
+		File inputFile=new File(file);
 		
-		
-		List<Double> totalScore =new ArrayList<Double>();
-		List<Integer> scoreQuarter1Total =new ArrayList<Integer>();
-		List<Integer> scoreQuarter2Total =new ArrayList<Integer>();
-		List<Integer> scoreQuarter3Total =new ArrayList<Integer>();
-		List<Integer> scoreQuarter4Total =new ArrayList<Integer>();
-		List<Integer> scoreMid1Total =new ArrayList<Integer>();
-		List<Integer> scoreMid2Total =new ArrayList<Integer>();
-		List<Integer> scoreFinalTotal =new ArrayList<Integer>();
-		
-		//StudentCompare is a class that implements Comparable Interface.
-		//Create a list of students of type StudentCompare
-		List<StudentCompare> students=new ArrayList<StudentCompare>();
-		
-		double studentScoreFinal=0.0;
+//		double studentScoreFinal=0.0;
 		
 		//if the input file doesn't exists then exit
 		if(!inputFile.exists()){
-			System.out.println("Input file" + args[0]+ "does not exist");
+			System.out.println("Input file" + file+ "does not exist");
 			System.exit(2);
 		}
-		
-		//Instantiate the output file whose name is given in args[1] field
-		File outputFile=new File(args[1]);
 		
 		//
 		try{
 			Scanner input=new Scanner(inputFile);
-			PrintWriter output=new PrintWriter(outputFile);
-			int i=1;
-			int q=0;
+			
+//			int i=1;
+//			int q=0;
 			
 			while(input.hasNextLine()){
 				
@@ -153,26 +148,26 @@ public class LetterGrader{
 				scoreFinalTotal.add(studentScoreFinale);
 				
 				//Increment the variable so that the loop keep running till the condition becomes false
-				i++;
-				q++;
+//				i++;
+//				q++;
 			}
 				//The object is called to sort since the class already implements comparable interface 
 				Collections.sort(students);
 				
 				//Call method 'displayAverages' to display the average,minimum and maximum of each term on console
-				displayAverages(scoreQuarter1Total,scoreQuarter2Total,scoreQuarter3Total,scoreQuarter4Total,scoreMid1Total,scoreMid2Total,scoreFinalTotal);
+//				displayAverages();
 				
 				
 				//Call method 'writeToOutputFile' to write the data to output file
-				writeToOutputFile(students,output);
+//				writeToOutputFile(outputFile);
 				
 				
 				//Call Method doCleanup to close the input and output file
-				doCleanup(input,output);
+				doCleanup(input);
 				
 				
 			}catch(IOException e){
-				System.out.println("Error reading from input file: "+args[0] );
+				System.out.println("Error reading from input file: "+file );
 				
 		}
 
@@ -203,7 +198,7 @@ public class LetterGrader{
 	/*        This Method display the the Average ,Minimum and Maximum score of each term on console                       				   */
 	/***********************************************************************************************************/
 	
-	private void displayAverages(List<Integer> scoreQuarter1Total,List<Integer> scoreQuarter2Total,List<Integer> scoreQuarter3Total,List<Integer> scoreQuarter4Total,List<Integer> scoreMid1Total,List<Integer> scoreMid2Total,List<Integer> scoreFinalTotal){
+	public void displayAverages(){
 			
 			//Call method caculateAverage to calculate the average scores for each quarter,mid and final
 			//by passing the lists of each quarter,mid and final
@@ -332,24 +327,30 @@ public class LetterGrader{
 		return result;
 	}
 
-	/*********************************
+	/**
+	 * @throws FileNotFoundException *******************************
 	 * 
 	 */
-	private void writeToOutputFile(List<StudentCompare> students,PrintWriter output){
+	public void writeGrades(String outputFile) throws FileNotFoundException{
+		
+		PrintWriter output=new PrintWriter(outputFile);
 	//Run iterator on students in order to write the studentname along with grades in sorted manner
 		for(StudentCompare data:students){
 			output.printf("%-20s : %-10s\n" ,data.getNames(),data.getgrades());
 			output.println();
 		}
+		
+		output.flush();
+		output.close();
 	}
 	
 	/***********************************************************************************************************/
 	/*        This Method closes the input and output file                                   				   */
 	/***********************************************************************************************************/
 	
-	private void doCleanup(Scanner input,PrintWriter output){
+	private void doCleanup(Scanner input){
 		input.close();
-		output.close();
+//		output.close();
 	}
 	
 	/***********************************************************************************************************/

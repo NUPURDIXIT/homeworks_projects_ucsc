@@ -1,5 +1,7 @@
 package Misc;
 
+import java.io.FileNotFoundException;
+
 public class TestLetterGrader {
 
 	public static void main(String[] args) {
@@ -10,8 +12,15 @@ public class TestLetterGrader {
 			System.exit(2);
 		}
 		else{
-			LetterGrader lettergrader=new LetterGrader(args[0],args[1]);
-			lettergrader.processInputOutputFiles(args);
+			LetterGrader lettergrader=new LetterGrader(args[0]);
+//			lettergrader.processInputFile();
+//			lettergrader.displayAverages();
+			try {
+				lettergrader.writeGrades(args[1]);
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 }
