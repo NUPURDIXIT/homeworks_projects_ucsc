@@ -2,3 +2,5 @@
 *.classpath
 FirstJavaProject/.settings/org.eclipse.jdt.core.prefs
 FirstJavaProject/.project
+flaskr/app.log
+*.pyc
