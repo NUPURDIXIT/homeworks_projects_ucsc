@@ -56,27 +56,36 @@ def add():
 @app.route("/history")
 def history():
 	db=get_db()
+	#formData = new FormData();
 	#dict = {'fromDate':request.args['fromdate'],'todate':request.args['todate']}
-	cursor=db.execute('select visitor_name from visitors')
+	#fromdate= ''
+	fromdate=request.args.get('fromdate')
+	todate=request.args.get('todate')
+
+
+	#if request.args.has_key('fromdate'):
+	#	fromdate = request.args['fromdate']
+
+	#todate = ''
+	#if request.args.has_key('todate'):
+	#	todate = request.args['todate']
+	print "from date is",fromdate
+	print "todate is",todate
+	#dict = {'fromdate':request.form['FromDate'],'todate':request.form['ToDate']}
+	query = 'select * from visitors where 1 = 1' 
+	if fromdate != None:
+		query += " and visit_date >= '"+str(fromdate)+"'"
+
+	if todate !=None :
+		query += " and visit_date <= '"+str(todate)+" 23:59:59'"
+	print "Query is ",query
+	cursor=db.execute(query)
 	
 	return render_template('history.html',items=cursor.fetchall())
-	#return redirect("/")
-	#return render_template('history.html', params = dict)
-@app.route("/visitorsFiltered")
-def visitorsFiltered():
-	db=get_db()
-	fromdate=request.form['fromdate']
-	todate=request.form['todate']
-	print fromDate
-	print todate
-	#dict = {'fromdate':request.form['FromDate'],'todate':request.form['ToDate']}
-	rows=db.execute('select visitor_name,visit_date from visitors where visit_date>=fromdate and visit_date<=todate')
-	return render_template('visitorsFiltered.html',items=rows.fetchall())
-
 	
 
-@app.route("/export")
 def export():
+	import xlwt
     return "Export to Excel"
 
 def connect_db():

@@ -11,11 +11,15 @@
 	<table border="1">
 	
 		<tr>
-			<th>Visitor Name</th>
+			<th>Visitor Name</th><th> Email </th><th>Contact</th><th>Employee Name</th><th>Visite Date</th>
 		</tr>
 		{% for item in items %}
 		<tr>
 			<td>{{item.visitor_name}}</td>
+			<td>{{item.email}}</td>
+			<td>{{item.phone_number}}</td>
+			<td>{{item.employee_name}}</td>
+			<td>{{item.visit_date}}</td>
 		</tr>
 	{% endfor %}
 	</table>
