@@ -21,7 +21,6 @@ public class LetterGrader implements IGrader{
 	/***********************************************************************************************************/
 	private String input;
 	private String output;
-	private List<Double> weightedScores =new ArrayList<Double>();
 	private List<Integer> scoresQuiz1 =new ArrayList<Integer>();
 	private List<Integer> scoresQuiz2 =new ArrayList<Integer>();
 	private List<Integer> scoresQuiz3 =new ArrayList<Integer>();
@@ -115,12 +114,9 @@ public class LetterGrader implements IGrader{
 				//of calculating final grade
 				weightedScore=calculateWeightedScore(scoreQuiz,scoreMid,studentScoreFinale);
 				
-				//keep adding the total scores of each student in a list 
-				weightedScores.add(weightedScore);
-				
 				//Call method calcLetterGrade to calculate the grade of all students by passing List of total
 				//scores of each student as parameter
-				String grade=calculateLetterGrade(weightedScores);
+				String grade=calculateLetterGrade(weightedScore);
 				
 				
 				student.setName(studentInfo[0]);
@@ -195,48 +191,48 @@ public class LetterGrader implements IGrader{
 	
 	private void displayAverages(){
 			
-			//Call method caculateAverage to calculate the average scores for each Quiz,mid and final
-			//by passing the lists of each Quiz,mid and final
-			double averageQuiz1=calculateAverage(scoresQuiz1);
-			double averageQuiz2=calculateAverage(scoresQuiz2);
-			double averageQuiz3=calculateAverage(scoresQuiz3);
-			double averageQuiz4=calculateAverage(scoresQuiz4);
-			double averageMid1=calculateAverage(scoresMid1);
-			double averageMid2=calculateAverage(scoresMid2);
-			double averageFinal=calculateAverage(scoresFinal);
-			
-			
-			//Call method caculateAverage to calculate the minimum scores for each Quiz,mid and final
-			//by passing the lists of each Quiz,mid and final
-			int minQ1=calculateMinimum(scoresQuiz1);
-			int minQ2=calculateMinimum(scoresQuiz2);
-			int minQ3=calculateMinimum(scoresQuiz3);
-			int minQ4=calculateMinimum(scoresQuiz4);
-			int minMidI=calculateMinimum(scoresMid1);
-			int minMidII=calculateMinimum(scoresMid2);
-			int minFinal=calculateMinimum(scoresFinal);
-			
-			
-			//Call method caculateAverage to calculate the maximum scores for each Quiz,mid and final
-			//by passing the lists of each Quiz,mid and final
-			int maxQ1=calculateMaximum(scoresQuiz1);
-			int maxQ2=calculateMaximum(scoresQuiz2);
-			int maxQ3=calculateMaximum(scoresQuiz3);
-			int maxQ4=calculateMaximum(scoresQuiz4);
-			int maxMidI=calculateMaximum(scoresMid1);
-			int maxMidII=calculateMaximum(scoresMid2);
-			int maxFinal=calculateMaximum(scoresFinal);
-			
-			System.out.println("Letter grade has been calculated for students listed in input file "+input+"  and written to output file "+output);
-			System.out.println("\nHere is the class avaerages:\n");
-			System.out.println("             Q1        Q2       Q3       Q4     MidI     MidII    Final");
-			System.out.printf("Average: %8.2f  %8.2f %8.2f %8.2f %8.2f %8.2f %8.2f",averageQuiz1,averageQuiz2,averageQuiz3,
-					averageQuiz4,averageMid1,averageMid2,averageFinal);
-			System.out.println();
-			System.out.printf("Minimum: %8d  %8d %8d %8d %8d %8d %8d",minQ1,minQ2,minQ3,minQ4,minMidI,minMidII,minFinal);
-			System.out.println();	
-			System.out.printf("Maximum: %8d  %8d %8d %8d %8d %8d %8d",maxQ1,maxQ2,maxQ3,maxQ4,maxMidI,maxMidII,maxFinal);
-		}
+		//Call method caculateAverage to calculate the average scores for each Quiz,mid and final
+		//by passing the lists of each Quiz,mid and final
+		double averageQuiz1=calculateAverage(scoresQuiz1);
+		double averageQuiz2=calculateAverage(scoresQuiz2);
+		double averageQuiz3=calculateAverage(scoresQuiz3);
+		double averageQuiz4=calculateAverage(scoresQuiz4);
+		double averageMid1=calculateAverage(scoresMid1);
+		double averageMid2=calculateAverage(scoresMid2);
+		double averageFinal=calculateAverage(scoresFinal);
+		
+		
+		//Call method caculateAverage to calculate the minimum scores for each Quiz,mid and final
+		//by passing the lists of each Quiz,mid and final
+		int minQ1=calculateMinimum(scoresQuiz1);
+		int minQ2=calculateMinimum(scoresQuiz2);
+		int minQ3=calculateMinimum(scoresQuiz3);
+		int minQ4=calculateMinimum(scoresQuiz4);
+		int minMidI=calculateMinimum(scoresMid1);
+		int minMidII=calculateMinimum(scoresMid2);
+		int minFinal=calculateMinimum(scoresFinal);
+		
+		
+		//Call method caculateAverage to calculate the maximum scores for each Quiz,mid and final
+		//by passing the lists of each Quiz,mid and final
+		int maxQ1=calculateMaximum(scoresQuiz1);
+		int maxQ2=calculateMaximum(scoresQuiz2);
+		int maxQ3=calculateMaximum(scoresQuiz3);
+		int maxQ4=calculateMaximum(scoresQuiz4);
+		int maxMidI=calculateMaximum(scoresMid1);
+		int maxMidII=calculateMaximum(scoresMid2);
+		int maxFinal=calculateMaximum(scoresFinal);
+		
+		System.out.println("Letter grade has been calculated for students listed in input file "+input+"  and written to\noutput file "+output);
+		System.out.println("\nHere is the class averages:\n");
+		System.out.println("             Q1        Q2       Q3       Q4      Mid1     Mid2    Final");
+		System.out.printf("Average: %8.2f  %8.2f %8.2f %8.2f %8.2f %8.2f %8.2f",averageQuiz1,averageQuiz2,averageQuiz3,
+				averageQuiz4,averageMid1,averageMid2,averageFinal);
+		System.out.println();
+		System.out.printf("Minimum: %8d  %8d %8d %8d %8d %8d %8d",minQ1,minQ2,minQ3,minQ4,minMidI,minMidII,minFinal);
+		System.out.println();	
+		System.out.printf("Maximum: %8d  %8d %8d %8d %8d %8d %8d",maxQ1,maxQ2,maxQ3,maxQ4,maxMidI,maxMidII,maxFinal);
+	}
 	
 	
 	/***********************************************************************************************************/
@@ -292,32 +288,27 @@ public class LetterGrader implements IGrader{
 	 /* 			<=59%  : F															                       */
 	 /***********************************************************************************************************/
 	
-	private String calculateLetterGrade(List<Double> totalScore){
-		String result="null";
+	private String calculateLetterGrade(double score){
+		String result="";
 		
-		for(double i:totalScore){
-			if(i>=90){
-				result="A";
-				
-			}
-			else if(i>=80){
-				result="B";
-				
-			}
-			else if(i>=70){
-				result="C";
-				
-			}
-			else if(i>=60){
-				result="D";
-				
-			}
-			else{
-				result="F";
-				
-			}
-			i++;
+		if(score>=90){
+			result="A";
 			
+		}
+		else if(score>=80){
+			result="B";
+			
+		}
+		else if(score>=70){
+			result="C";
+			
+		}
+		else if(score>=60){
+			result="D";
+			
+		}
+		else{
+			result="F";
 		}
 		
 		return result;
