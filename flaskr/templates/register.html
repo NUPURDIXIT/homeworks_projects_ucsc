@@ -70,7 +70,13 @@ div.button {
 	</style>
 </head>
 <body>
+
 <div class="form">
+	{% if errors %}
+	<div class="validateerror">
+	{{ errors }}
+	</div>
+     {% endif %}
 <form action="/add" method="POST">
 	<h1>Visitor Log Form 
 		<div class="h1span">
@@ -142,20 +148,21 @@ div.button {
 		<label for="fromdate"><span>From Date : </span></label>
 	</div>
 	<div class="input">
-		<input type="date" id="fromdate" name="fromdate">
+		<input type="date" id="fromdate" name="fromdate" value="1">
 	</div>
 
 	<div class="label">
 		<label for="todate"><span>To Date : </span></label>
 	</div>
 	<div class="input">
-		<input type="date" id="todate" name="todate">
+		<input type="date" id="todate" name="todate" value="1">
 	</div>
 	<div class="button">
 		<input type="submit" value="Search Option">
 	</div>
 
 </form>
+
 </div>
 </body>
 

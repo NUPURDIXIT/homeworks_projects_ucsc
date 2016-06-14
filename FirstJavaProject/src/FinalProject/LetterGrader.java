@@ -155,12 +155,13 @@ public class LetterGrader implements IGrader{
 				//The object is called to sort since the class already implements comparable interface 
 				Collections.sort(students);
 				
-				input.close();
-				
+					
 			}catch(IOException e){
 				System.out.println("Error reading from input file: "+file );
 				
 		}
+
+		
 
 	}
 
@@ -190,7 +191,7 @@ public class LetterGrader implements IGrader{
 	/***********************************************************************************************************/
 	
 	private void displayAverages(){
-			
+		Scanner inputScanner=new Scanner(input);
 		//Call method caculateAverage to calculate the average scores for each Quiz,mid and final
 		//by passing the lists of each Quiz,mid and final
 		double averageQuiz1=calculateAverage(scoresQuiz1);
@@ -232,6 +233,13 @@ public class LetterGrader implements IGrader{
 		System.out.printf("Minimum: %8d  %8d %8d %8d %8d %8d %8d",minQ1,minQ2,minQ3,minQ4,minMidI,minMidII,minFinal);
 		System.out.println();	
 		System.out.printf("Maximum: %8d  %8d %8d %8d %8d %8d %8d",maxQ1,maxQ2,maxQ3,maxQ4,maxMidI,maxMidII,maxFinal);
+		//This would get displayed after every operation's result is displayed
+		System.out.println("\n\nPress enter to continue...");
+		
+		//In order to return to a new line
+		inputScanner.nextLine();
+
+		inputScanner.close();
 	}
 	
 	

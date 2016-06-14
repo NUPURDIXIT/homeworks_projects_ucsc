@@ -1,9 +1,11 @@
 <!doctype html>
 <head>
 	<style>
-		table{border-collapse:collapse}
-		tr td{padding:2px 185px 2px 2px}
+		table{border-collapse:collapse;width:80%}
+		tr td{padding:2px 185px 2px 2px;width:20%}
 		th{text-align: left}
+		tr th{background: #E27575;width:20%}
+   		
 	</style>
 </head>
 <body>
@@ -23,6 +25,12 @@
 		</tr>
 	{% endfor %}
 	</table>
+	<br>
+	<form action="/history">
+		
+		<input type="submit" value="Export to excel" name="flag">
+
+	</form>
 </body>
 
 
