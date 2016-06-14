@@ -1,5 +1,6 @@
 package FinalProject;
 
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -12,23 +13,22 @@ import java.util.Scanner;
 
 import FinalProject.utility.Utils;
 
-
+//class LetterGrader has all the functionalities and is implementing interface Igrader
 public class LetterGrader implements IGrader{
 	
 	/***********************************************************************************************************/
 	/*        Declaration of private variables                     											   */
 	/***********************************************************************************************************/
 	private String input;
-	
 	private String output;
 	private List<Double> weightedScores =new ArrayList<Double>();
-	private List<Integer> scoreQuiz1Total =new ArrayList<Integer>();
-	private List<Integer> scoreQuiz2Total =new ArrayList<Integer>();
-	private List<Integer> scoreQuiz3Total =new ArrayList<Integer>();
-	private List<Integer> scoreQuiz4Total =new ArrayList<Integer>();
-	private List<Integer> scoreMid1Total =new ArrayList<Integer>();
-	private List<Integer> scoreMid2Total =new ArrayList<Integer>();
-	private List<Integer> scoreFinalTotal =new ArrayList<Integer>();
+	private List<Integer> scoresQuiz1 =new ArrayList<Integer>();
+	private List<Integer> scoresQuiz2 =new ArrayList<Integer>();
+	private List<Integer> scoresQuiz3 =new ArrayList<Integer>();
+	private List<Integer> scoresQuiz4 =new ArrayList<Integer>();
+	private List<Integer> scoresMid1 =new ArrayList<Integer>();
+	private List<Integer> scoresMid2 =new ArrayList<Integer>();
+	private List<Integer> scoresFinal =new ArrayList<Integer>();
 	
 	//StudentCompare is a class that implements Comparable Interface.
 	//Create a list of students of type StudentCompare
@@ -45,7 +45,7 @@ public class LetterGrader implements IGrader{
 	}
 	
 	/***********************************************************************************************************/
-	/*        This Method calculates the Average scores of each student                       				   */
+	/*        This Method parses input file and keep values in instance variables
 	/***********************************************************************************************************/
 	private void processInputFile(String file){
 		
@@ -54,46 +54,35 @@ public class LetterGrader implements IGrader{
 		
 //		double studentScoreFinal=0.0;
 		
-		//if the input file doesn't exists then exit
+		//if the input file doesn't exists then display proper message and exit
 		if(!inputFile.exists()){
 			System.out.println("Input file" + file+ "does not exist");
 			System.exit(2);
 		}
 		
-		//
+		//Exception handling to catch the IOException
 		try{
 			Scanner input=new Scanner(inputFile);
 			
-//			int i=1;
-//			int q=0;
-			
+			//Run the while loop till a line is encountered in the input file.
 			while(input.hasNextLine()){
 				
-				Student studentComp=new Student();
+				//Create an object of class Student
+				Student student=new Student();
+				
+				//Store each line
 				String line=input.nextLine();
 				
+				//parse the line by splitting it with delimiter comma(,)
 				String[] studentInfo=line.split(",");
+				
+				//on splitting line the total number of fields equals 8, thus this check ensures that if
+				//there is any line between any two rows in input file then skip else it would result in an error
 				if(studentInfo.length!=8){
 					continue;
 				}
 				
 				double weightedScore=0.0;
-				
-				//Call Method calculateScores to calculate the total score of each student for the purpose 
-				//of calculating final grade
-				weightedScore=calculateWeightedScore(studentInfo[1],studentInfo[2],studentInfo[3],studentInfo[4],studentInfo[5],studentInfo[6],studentInfo[7]);
-				
-				//keep adding the total scores of each student in a list 
-				weightedScores.add(weightedScore);
-				
-				//Call method calcLetterGrade to calculate the grade of all students by passing List of total
-				//scores of each student as parameter
-				String grade=calculateLetterGrade(weightedScores);
-				
-				
-				studentComp.setName(studentInfo[0]);
-				studentComp.setGrade(grade);
-				
 				//Integer Array to store the scores for Quiz1,2,3,4
 				Integer[] scoreQuiz=new Integer[4];
 				
@@ -104,6 +93,7 @@ public class LetterGrader implements IGrader{
 				//Integer with the help of wrapper class.
 				
 				//Note:
+				//Utils class is created to handle exception while parsing the string to integer
 				//studentInfo[1] stores the score for Quiz1 
 				//studentInfo[2] stores the score for Quiz2
 				//studentInfo[3] stores the score for Quiz3
@@ -112,49 +102,62 @@ public class LetterGrader implements IGrader{
 				scoreQuiz[1]=Utils.parseInt(studentInfo[2].trim());
 				scoreQuiz[2]=Utils.parseInt(studentInfo[3].trim());
 				scoreQuiz[3]=Utils.parseInt(studentInfo[4].trim());
-				
-				
-				//Call setScoreQuiz method of class StudentCompare to set the scores of each Quiz
-				//for each student
-				studentComp.setScoreQuiz(scoreQuiz);
-				
 				//studentInfo[5] stores the score for Mid1 
 				//studentInfo[6] stores the score for Mid2
 				
 				scoreMid[0]=Utils.parseInt(studentInfo[5].trim());
 				scoreMid[1]=Utils.parseInt(studentInfo[6].trim());
 				
-				////Call setScoreMid method of class StudentCompare to set the scores of each Midterm
-				//for each student
-				studentComp.setScoreMid(scoreMid);
-				
-				
 				//Integer variable to store Score for Final 
 				Integer studentScoreFinale=Utils.parseInt(studentInfo[7].trim());
-				studentComp.setScoreFinal(studentScoreFinale);
+				student.setScoreFinal(studentScoreFinale);
+				//Call Method calculateScores to calculate the total score of each student for the purpose 
+				//of calculating final grade
+				weightedScore=calculateWeightedScore(scoreQuiz,scoreMid,studentScoreFinale);
+				
+				//keep adding the total scores of each student in a list 
+				weightedScores.add(weightedScore);
+				
+				//Call method calcLetterGrade to calculate the grade of all students by passing List of total
+				//scores of each student as parameter
+				String grade=calculateLetterGrade(weightedScores);
+				
+				
+				student.setName(studentInfo[0]);
+				student.setGrade(grade);
+				
+				
+				
+				//Call setScoreQuiz method of class StudentCompare to set the scores of each Quiz
+				//for each student
+				student.setScoreQuiz(scoreQuiz);
+				
+				
+				
+				////Call setScoreMid method of class StudentCompare to set the scores of each Midterm
+				//for each student
+				student.setScoreMid(scoreMid);
+				
+				
+				
 				
 				//List students keep adding the data of all students
-				students.add(studentComp);
+				students.add(student);
 				
 				//Lists to store scores for Quiz1,Quiz2,Quiz3,Quiz4,mid1,mid2,final
 				//This is done in order to calculate the Average,Minimum and Maximum score for each term
-				scoreQuiz1Total.add(scoreQuiz[0]);
-				scoreQuiz2Total.add(scoreQuiz[1]);
-				scoreQuiz3Total.add(scoreQuiz[2]);
-				scoreQuiz4Total.add(scoreQuiz[3]);
-				scoreMid1Total.add(scoreMid[0]);
-				scoreMid2Total.add(scoreMid[1]);
-				scoreFinalTotal.add(studentScoreFinale);
+				scoresQuiz1.add(scoreQuiz[0]);
+				scoresQuiz2.add(scoreQuiz[1]);
+				scoresQuiz3.add(scoreQuiz[2]);
+				scoresQuiz4.add(scoreQuiz[3]);
+				scoresMid1.add(scoreMid[0]);
+				scoresMid2.add(scoreMid[1]);
+				scoresFinal.add(studentScoreFinale);
 				
 				
 			}
 				//The object is called to sort since the class already implements comparable interface 
 				Collections.sort(students);
-				try {
-					writeGrades();
-				} catch (FileNotFoundException e) {
-					e.printStackTrace();
-				}
 				
 				input.close();
 				
@@ -171,15 +174,15 @@ public class LetterGrader implements IGrader{
 	/*        This Method calculates the total scores of each student                       				  */
 	/**********************************************************************************************************/
 	
-	private double calculateWeightedScore(String studentInfo1,String studentInfo2,String studentInfo3,String studentInfo4,String studentInfo5,String studentInfo6,String studentInfo7){
+	private double calculateWeightedScore(Integer[] scoreQuiz,Integer[] scoreMid,Integer scoreFinale){
 		double totalScores = 0.0;
-		double studentScoreQ1=Utils.parseInt(studentInfo1.trim())*0.1;
-		double studentScoreQ2=Utils.parseInt(studentInfo2.trim())*0.1;
-		double studentScoreQ3=Utils.parseInt(studentInfo3.trim())*0.1;
-		double studentScoreQ4=Utils.parseInt(studentInfo4.trim())*0.1;
-		double studentScoreMid1=Utils.parseInt(studentInfo5.trim())*0.2;
-		double studentScoreMid2=Utils.parseInt(studentInfo6.trim())*0.15;
-		double studentScoreFinal=Utils.parseInt(studentInfo7.trim())*0.25;
+		double studentScoreQ1=scoreQuiz[0]*0.1;
+		double studentScoreQ2=scoreQuiz[1]*0.1;
+		double studentScoreQ3=scoreQuiz[2]*0.1;
+		double studentScoreQ4=scoreQuiz[3]*0.1;
+		double studentScoreMid1=scoreMid[0]*0.2;
+		double studentScoreMid2=scoreMid[1]*0.15;
+		double studentScoreFinal=scoreFinale*0.25;
 		totalScores=studentScoreQ1+studentScoreQ2+studentScoreQ3+studentScoreQ4+studentScoreMid1+
 				    studentScoreMid2+studentScoreFinal;
 		return totalScores;
@@ -190,39 +193,39 @@ public class LetterGrader implements IGrader{
 	/*        This Method display the the Average ,Minimum and Maximum score of each term on console                       				   */
 	/***********************************************************************************************************/
 	
-	public void displayAverages(){
+	private void displayAverages(){
 			
 			//Call method caculateAverage to calculate the average scores for each Quiz,mid and final
 			//by passing the lists of each Quiz,mid and final
-			double averageQuiz1=calculateAverage(scoreQuiz1Total);
-			double averageQuiz2=calculateAverage(scoreQuiz2Total);
-			double averageQuiz3=calculateAverage(scoreQuiz3Total);
-			double averageQuiz4=calculateAverage(scoreQuiz4Total);
-			double averageMid1=calculateAverage(scoreMid1Total);
-			double averageMid2=calculateAverage(scoreMid2Total);
-			double averageFinal=calculateAverage(scoreFinalTotal);
+			double averageQuiz1=calculateAverage(scoresQuiz1);
+			double averageQuiz2=calculateAverage(scoresQuiz2);
+			double averageQuiz3=calculateAverage(scoresQuiz3);
+			double averageQuiz4=calculateAverage(scoresQuiz4);
+			double averageMid1=calculateAverage(scoresMid1);
+			double averageMid2=calculateAverage(scoresMid2);
+			double averageFinal=calculateAverage(scoresFinal);
 			
 			
 			//Call method caculateAverage to calculate the minimum scores for each Quiz,mid and final
 			//by passing the lists of each Quiz,mid and final
-			int minQ1=calculateMinimum(scoreQuiz1Total);
-			int minQ2=calculateMinimum(scoreQuiz2Total);
-			int minQ3=calculateMinimum(scoreQuiz3Total);
-			int minQ4=calculateMinimum(scoreQuiz4Total);
-			int minMidI=calculateMinimum(scoreMid1Total);
-			int minMidII=calculateMinimum(scoreMid2Total);
-			int minFinal=calculateMinimum(scoreFinalTotal);
+			int minQ1=calculateMinimum(scoresQuiz1);
+			int minQ2=calculateMinimum(scoresQuiz2);
+			int minQ3=calculateMinimum(scoresQuiz3);
+			int minQ4=calculateMinimum(scoresQuiz4);
+			int minMidI=calculateMinimum(scoresMid1);
+			int minMidII=calculateMinimum(scoresMid2);
+			int minFinal=calculateMinimum(scoresFinal);
 			
 			
 			//Call method caculateAverage to calculate the maximum scores for each Quiz,mid and final
 			//by passing the lists of each Quiz,mid and final
-			int maxQ1=calculateMaximum(scoreQuiz1Total);
-			int maxQ2=calculateMaximum(scoreQuiz2Total);
-			int maxQ3=calculateMaximum(scoreQuiz3Total);
-			int maxQ4=calculateMaximum(scoreQuiz4Total);
-			int maxMidI=calculateMaximum(scoreMid1Total);
-			int maxMidII=calculateMaximum(scoreMid2Total);
-			int maxFinal=calculateMaximum(scoreFinalTotal);
+			int maxQ1=calculateMaximum(scoresQuiz1);
+			int maxQ2=calculateMaximum(scoresQuiz2);
+			int maxQ3=calculateMaximum(scoresQuiz3);
+			int maxQ4=calculateMaximum(scoresQuiz4);
+			int maxMidI=calculateMaximum(scoresMid1);
+			int maxMidII=calculateMaximum(scoresMid2);
+			int maxFinal=calculateMaximum(scoresFinal);
 			
 			System.out.println("Letter grade has been calculated for students listed in input file "+input+"  and written to output file "+output);
 			System.out.println("\nHere is the class avaerages:\n");
@@ -237,7 +240,7 @@ public class LetterGrader implements IGrader{
 	
 	
 	/***********************************************************************************************************/
-	/*        This Method calculates the Average scores of each student                       				   */
+	/*        This Method calculates the Average scores for each term                      				   */
 	/***********************************************************************************************************/
 	
 	private double calculateAverage(List<Integer> scoreListEachTerm){
@@ -267,7 +270,7 @@ public class LetterGrader implements IGrader{
 	}
 	
 	/***********************************************************************************************************/
-	/*        This Method calculates the Maximum scores for each term                          				   */
+	/*        This Method calculates the Maximum score for each term                          				   */
 	/***********************************************************************************************************/
 	
 	private int calculateMaximum(List<Integer> scoreListEachTerm){
@@ -327,12 +330,14 @@ public class LetterGrader implements IGrader{
 	 * @throws FileNotFoundException *******************************
 	 * 
 	 */
-	public void writeGrades() throws FileNotFoundException{
+	public void writeGradesAndDisplayAvgs() throws FileNotFoundException{
 		
 		PrintWriter output=new PrintWriter(this.output);
-	//Run iterator on students in order to write the studentname along with grades in sorted manner
+	
 		output.println("Letter grade for "+students.size()+" students given in "+this.input+" file is:");
 		output.println();
+		
+		//Run iterator on students in order to write the studentname along with grades in sorted manner
 		for(Student student:students){
 			output.println(student.getNameGradeString());
 			
@@ -340,6 +345,9 @@ public class LetterGrader implements IGrader{
 		
 		output.flush();
 		output.close();
+		
+		//Call method displayAverages to show Average,Min and Max of all the terms on console
+		displayAverages();
 	}
 	
 	
