@@ -1,6 +1,6 @@
 import os
 import sqlite3
-import logging
+import logging,re
 from flask import Flask, request, session, g, redirect, url_for, abort, render_template, flash
 #from wtforms import Form, TextField, TextAreaField, validators, StringField, SubmitField
 from datetime import datetime
@@ -28,7 +28,7 @@ formatter = logging.Formatter(app.config['LOGGING_FORMAT'])
 handler.setFormatter(formatter)
 app.logger.addHandler(handler)
 
-'''
+
 def is_email_address_valid(email):
 	"""Validate the email address using a regex."""
 	if not re.match(r'^[a-zA-Z0-9._]+@([a-zA-Z])+\.([a-zA-Z]+)$', email):
@@ -41,64 +41,62 @@ def is_phone_number_valid(phone_number):
 	if not re.match(r'(\+[0-9]+\s*)?(\([0-9]+\))?[\s0-9\-]+[0-9]+', phone_number):
 		return False
 	return True
-'''
+
 
 
 
 @app.route("/")
 @app.route("/register")
 def registerform():
-	return render_template('register.html', name='Nupur Nupur')
+	return render_template('register.html')
+
 
 @app.route("/add",methods=['POST'])
 def add():
-	
-    app.logger.info(str(request.form))
-    db = get_db()
+	app.logger.info(str(request.form))
+	db = get_db()
 
-    now = datetime.now()
+	now = datetime.now()
 
-    db.execute('insert into visitors (visitor_name, email, phone_number, employee_name, visit_date) values (?, ?, ?, ?, ?)',
-	[request.form['PersonVisiting'], request.form['Email'],request.form['Contact'],request.form['PersonToVisit'],now])
-    db.commit()
-    flash('New entry was successfully posted')
-    return redirect("/")
+	errors=''
+	name=request.form.get('PersonVisiting')
+	print "name is: ",name
+	# The request is POST with some data, get POST data and validate it.
+    # The form data is available in request.form dictionary. Stripping it to remove
+    # leading and trailing whitespaces
 
-	
-	
-	
-    
+    #name=request.form['PersonVisiting'].strip()
+	email=request.form.get('Email')
+	phone_number=request.form.get('Contact')
+	employee_name=request.form.get('PersonToVisit')
 
-'''
-    errors=''
-
-    if request.method=='GET':
-    	return render_template('register.html', errors=errors)
-    else:
-    	# The request is POST with some data, get POST data and validate it.
-        # The form data is available in request.form dictionary. Stripping it to remove
-          # leading and trailing whitespaces
-    	name=request.form['PersonVisiting'].strip()
-    	email=request.form['email'].strip()
-    	phone_number=request.form['contact'].strip()
-    	employee_name=request.form['PersonToVisit'].strip()
-
-    	# Check if all the fields are non-empty and raise an error otherwise
+	dict={'PersonVisiting':name,'Email':email,'Contact':phone_number,'PersonToVisit':employee_name}
+	# Check if all the fields are non-empty and raise an error otherwise
 	if not name or not email or not phone_number or not employee_name:
-		errors="Please enter all the fields."
-
-
-	if not errors:
-		# Validate the email address and raise an error if it is invalid
+		errors="<p>Please enter all the fields.</p>"
+		print "error is",errors
+	elif not errors:
 		if not is_email_address_valid(email):
-			errors=errors+" Please enter a valid email address"
-
+			errors=errors+" <p>Please enter a valid email address</p>"
+	# Validate the email address and raise an error if it is invalid
 		if not is_phone_number_valid(phone_number):
-			errors=errors+" Please enter a valid phone number"
+			errors=errors+" <p>Please enter a valid phone number</p>"
 
-	# If there are no errors, then insert the row in database
-	if not errors:
-'''		
+# If there are no errors, then insert the row in database
+	if errors:
+		return render_template('register.html', dict=dict,errors=errors)
+        
+	db.execute('insert into visitors (visitor_name, email, phone_number, employee_name, visit_date) values (?, ?, ?, ?, ?)',
+	[name,email,phone_number,employee_name,now])
+	db.commit()
+	#[request.form['PersonVisiting'], request.form['Email'],request.form['Contact'],request.form['PersonToVisit'],now])
+    
+	
+	flash('New entry was successfully posted')
+
+	
+	return redirect("/")
+	
 
    	
 
@@ -137,23 +135,22 @@ def export(items):
 	
 	workbook=xlwt.Workbook()
 	sheet=workbook.add_sheet("Visitors List")
-	
+	sheet.write(0,1,'Visitor Name')
+	sheet.write(0,2,'Email')
+	sheet.write(0,3,'Phone number')
+	sheet.write(0,4,'Employee Name')
+	sheet.write(0,5,'Visit date')
 	for i,v in enumerate(items):
-		#sheet.write(0,0,'Visitor Name')
-		#sheet.write(0,1,'Email')
-		#sheet.write(0,2,'Phone number')
-		#sheet.write(0,3,'Employee Name')
-		#sheet.write(0,4,'Visit date')
-		sheet.write(i,0,v[0])
-		sheet.write(i,1,v[1])
-		sheet.write(i,2,v[2])
-		sheet.write(i,3,v[3])
-		sheet.write(i,4,v[4])
-	  	sheet.write(i,5,v[5])
-		#sheet.write(i,6,v[6])
+		sheet.write(i+1,0,v[0])
+		sheet.write(i+1,1,v[1])
+		sheet.write(i+1,2,v[2])
+		sheet.write(i+1,3,v[3])
+		sheet.write(i+1,4,v[4])
+	  	sheet.write(i+1,5,v[5])
+		
 		
 	workbook.save("visitorlog2.xls")
-	#return workbook
+	
 
 def connect_db():
     """Connects to the specific database."""
