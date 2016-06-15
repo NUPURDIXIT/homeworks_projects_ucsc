@@ -1,6 +1,6 @@
 package FinalProject.utility;
 
-//This class is created to parse the stirng to integer using Integer wrapper class
+//This class is created to parse the string to integer using Integer wrapper class
 //and handle the Number format exception that may arise due to faulty value
 public class Utils {
 	
