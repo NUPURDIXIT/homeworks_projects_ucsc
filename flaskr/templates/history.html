@@ -2,18 +2,20 @@
 <head>
 	<style>
 		table{border-collapse:collapse;width:80%}
-		tr td{padding:2px 185px 2px 2px;width:20%}
+		tr td{padding: 5px;width:20%}
 		th{text-align: left}
 		tr th{background: #E27575;width:20%}
+		.message{color:green;}
    		
 	</style>
 </head>
 <body>
 	<h1>List of visitors is as below:</h1>
+	<p class="message"> {{ message }} </p>
 	<table border="1">
 	
 		<tr>
-			<th>Visitor Name</th><th> Email </th><th>Contact</th><th>Employee Name</th><th>Visite Date</th>
+			<th>Visitor Name</th><th> Email </th><th>Contact</th><th>Employee Name</th><th>Visit Date</th>
 		</tr>
 		{% for item in items %}
 		<tr>
@@ -27,7 +29,8 @@
 	</table>
 	<br>
 	<form action="/history">
-		
+		<input type="hidden" name="fromdate" value="{{ fromdate }}">
+		<input type="hidden" name="todate" value="{{ todate }}">
 		<input type="submit" value="Export to excel" name="flag">
 
 	</form>

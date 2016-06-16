@@ -2,9 +2,8 @@ import os
 import sqlite3
 import logging,re
 from flask import Flask, request, session, g, redirect, url_for, abort, render_template, flash
-#from wtforms import Form, TextField, TextAreaField, validators, StringField, SubmitField
 from datetime import datetime
-#from datetime import 
+
 
 app = Flask(__name__)
 app.config.from_object(__name__)
@@ -28,13 +27,14 @@ formatter = logging.Formatter(app.config['LOGGING_FORMAT'])
 handler.setFormatter(formatter)
 app.logger.addHandler(handler)
 
-
+#function to validate the email id
 def is_email_address_valid(email):
 	"""Validate the email address using a regex."""
 	if not re.match(r'^[a-zA-Z0-9._]+@([a-zA-Z])+\.([a-zA-Z]+)$', email):
 		return False
 	return True
 
+#function to validate the phone number
 def is_phone_number_valid(phone_number):
 	"""Validate the phonr number using a regex."""
 	
@@ -43,14 +43,15 @@ def is_phone_number_valid(phone_number):
 	return True
 
 
-
-
+#@app.route is a decorator used to match URLs to view functions in flask apps
+#This is to show the register page for the users to enter the required fields
 @app.route("/")
 @app.route("/register")
 def registerform():
 	return render_template('register.html')
 
 
+#This method perfoms the validations and if all ok, adds the row to the database
 @app.route("/add",methods=['POST'])
 def add():
 	app.logger.info(str(request.form))
@@ -60,25 +61,21 @@ def add():
 
 	errors=''
 	name=request.form.get('PersonVisiting')
-	print "name is: ",name
-	# The request is POST with some data, get POST data and validate it.
-    # The form data is available in request.form dictionary. Stripping it to remove
-    # leading and trailing whitespaces
-
-    #name=request.form['PersonVisiting'].strip()
 	email=request.form.get('Email')
 	phone_number=request.form.get('Contact')
 	employee_name=request.form.get('PersonToVisit')
 
 	dict={'PersonVisiting':name,'Email':email,'Contact':phone_number,'PersonToVisit':employee_name}
+
 	# Check if all the fields are non-empty and raise an error otherwise
 	if not name or not email or not phone_number or not employee_name:
 		errors="<p>Please enter all the fields.</p>"
 		print "error is",errors
 	elif not errors:
+		# Validate the email address and phone number ,in case of issue raise an error
 		if not is_email_address_valid(email):
 			errors=errors+" <p>Please enter a valid email address</p>"
-	# Validate the email address and raise an error if it is invalid
+	
 		if not is_phone_number_valid(phone_number):
 			errors=errors+" <p>Please enter a valid phone number</p>"
 
@@ -89,57 +86,97 @@ def add():
 	db.execute('insert into visitors (visitor_name, email, phone_number, employee_name, visit_date) values (?, ?, ?, ?, ?)',
 	[name,email,phone_number,employee_name,now])
 	db.commit()
-	#[request.form['PersonVisiting'], request.form['Email'],request.form['Contact'],request.form['PersonToVisit'],now])
-    
 	
 	flash('New entry was successfully posted')
 
-	
 	return redirect("/")
 	
 
    	
-
+#This method deals with the functionality to show the complete list of visitors or based on from and to date
 @app.route("/history")
 def history():
 	db=get_db()
 	
 	fromdate=request.args.get('fromdate')
 	todate=request.args.get('todate')
+	print 'from date is',fromdate
+	print 'todate is',todate
+	if fromdate==None:
+		fromdate=''
+	if todate==None:
+		todate=''
+
+	#Build the query to be executed in 2 cases: 1. Complete list is to be retrieved and 2.Filetered list on 
+	# the basis of from and to date
 	query = 'select * from visitors where 1 = 1' 
-	if fromdate != None:
+
+	if fromdate!='':
 		query += " and visit_date >= '"+str(fromdate)+"'"
 
-	if todate !=None :
+	if todate !='':
 		query += " and visit_date <= '"+str(todate)+" 23:59:59'"
 
 	cursor=db.execute(query)
 
-	print "valueof flag is:",request.args.get('flag')
-
 	items=cursor.fetchall()
 
+	#message gets displayed on the screen with the file name to which the data has been exported to excel file
+	message=''
 	if request.args.get('flag') =="Export to excel":
 		print "Query is ",query
+		message=export(items)
 
-		export(items)
-		return render_template('history.html',items=items)
-	else:
-		print "Query is ",query
-		return render_template('history.html',items=items)
+	return render_template('history.html',message=message,fromdate=fromdate,todate=todate,items=items)
+	
 
 
-
+#This method is responsible for saving the data to an excel file
 def export(items):
 	import xlwt
+	file="Visitor_Log"
+	now=datetime.now()
+
+	#set the name of file by appending date-monthname-year_hourminutesecond.xls
+	#This way each time a new file is generated
+	file=now.strftime('%d-%b-%Y_%H%M%S')+'.xls'
 	
 	workbook=xlwt.Workbook()
 	sheet=workbook.add_sheet("Visitors List")
-	sheet.write(0,1,'Visitor Name')
-	sheet.write(0,2,'Email')
-	sheet.write(0,3,'Phone number')
-	sheet.write(0,4,'Employee Name')
-	sheet.write(0,5,'Visit date')
+
+	#to set the column width
+	first_col=sheet.col(0);
+	second_col=sheet.col(1);
+	third_col=sheet.col(2);
+	fourth_col=sheet.col(3);
+	fifth_col=sheet.col(4);
+	sixth_col=sheet.col(5);
+	#xlwt by default sets the width to 11 characters. Width value of an integer is 1/256 of the width of the 
+	#character '0' 
+
+	#set the width of the columns to 256*w where w is the length of the characters required
+	first_col.width=256*4       
+	second_col.width=256*40
+	third_col.width=256*40
+	fourth_col.width=256*20
+	fifth_col.width=256*40
+	sixth_col.width=256*40
+		
+	#To set the styles in excel
+	BG = xlwt.Pattern() 
+	BG.pattern = BG.SOLID_PATTERN 
+	BG.pattern_fore_colour = 3 
+
+	FontStyle = xlwt.XFStyle() 
+	FontStyle.pattern = BG 
+
+	
+	#implementing the cell style in the headers of the excel file
+	sheet.write(0,1,'Visitor Name',FontStyle)
+	sheet.write(0,2,'Email',FontStyle)
+	sheet.write(0,3,'Phone number',FontStyle)
+	sheet.write(0,4,'Employee Name',FontStyle)
+	sheet.write(0,5,'Visit date',FontStyle)
 	for i,v in enumerate(items):
 		sheet.write(i+1,0,v[0])
 		sheet.write(i+1,1,v[1])
@@ -147,9 +184,9 @@ def export(items):
 		sheet.write(i+1,3,v[3])
 		sheet.write(i+1,4,v[4])
 	  	sheet.write(i+1,5,v[5])
-		
-		
-	workbook.save("visitorlog2.xls")
+	workbook.save(file)
+	message="File has been saved to "+file
+	return message
 	
 
 def connect_db():
