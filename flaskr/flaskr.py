@@ -3,7 +3,10 @@ import sqlite3
 import logging,re
 from flask import Flask, request, session, g, redirect, url_for, abort, render_template, flash
 from datetime import datetime
-
+from ValidateForm import ValidateEmail
+from ValidateForm import ValidatePhoneNumber
+from ValidateForm import ValidateAll
+from ValidateForm import ValidateMethod
 
 app = Flask(__name__)
 app.config.from_object(__name__)
@@ -27,6 +30,7 @@ formatter = logging.Formatter(app.config['LOGGING_FORMAT'])
 handler.setFormatter(formatter)
 app.logger.addHandler(handler)
 
+'''
 #function to validate the email id
 def is_email_address_valid(email):
 	"""Validate the email address using a regex."""
@@ -41,7 +45,7 @@ def is_phone_number_valid(phone_number):
 	if not re.match(r'(\+[0-9]+\s*)?(\([0-9]+\))?[\s0-9\-]+[0-9]+', phone_number):
 		return False
 	return True
-
+'''
 
 #@app.route is a decorator used to match URLs to view functions in flask apps
 #This is to show the register page for the users to enter the required fields
@@ -58,31 +62,26 @@ def add():
 	db = get_db()
 
 	now = datetime.now()
-
-	errors=''
 	name=request.form.get('PersonVisiting')
 	email=request.form.get('Email')
 	phone_number=request.form.get('Contact')
 	employee_name=request.form.get('PersonToVisit')
 
 	dict={'PersonVisiting':name,'Email':email,'Contact':phone_number,'PersonToVisit':employee_name}
-
-	# Check if all the fields are non-empty and raise an error otherwise
-	if not name or not email or not phone_number or not employee_name:
+	errors=''
+	try:
+		ValidateMethod(name,email,phone_number,employee_name)
+	except ValidateAll:
 		errors="<p>Please enter all the fields.</p>"
-		print "error is",errors
-	elif not errors:
-		# Validate the email address and phone number ,in case of issue raise an error
-		if not is_email_address_valid(email):
-			errors=errors+" <p>Please enter a valid email address</p>"
+	except ValidateEmail:
+		errors=errors+" <p>Please enter a valid email address</p>"
+	except ValidatePhoneNumber:
+		errors=errors+" <p>Please enter a valid phone number</p>"
 	
-		if not is_phone_number_valid(phone_number):
-			errors=errors+" <p>Please enter a valid phone number</p>"
-
-# If there are no errors, then insert the row in database
 	if errors:
 		return render_template('register.html', dict=dict,errors=errors)
-        
+
+	        
 	db.execute('insert into visitors (visitor_name, email, phone_number, employee_name, visit_date) values (?, ?, ?, ?, ?)',
 	[name,email,phone_number,employee_name,now])
 	db.commit()
@@ -228,4 +227,4 @@ def initdb_command():
 
 
 if __name__ == "__main__":
-    app.run()
+	app.run()
