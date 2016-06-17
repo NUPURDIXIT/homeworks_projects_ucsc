@@ -223,8 +223,5 @@ def initdb_command():
     print 'Initialized the database.'
 
 
-
-
-
 if __name__ == "__main__":
 	app.run()
