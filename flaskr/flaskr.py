@@ -1,12 +1,12 @@
 import os
 import sqlite3
 import logging,re
-from flask import Flask, request, session, g, redirect, url_for, abort, render_template, flash
+from flask import Flask, request, session, g, redirect, url_for, abort, render_template
 from datetime import datetime
-from ValidateForm import ValidateEmail
-from ValidateForm import ValidatePhoneNumber
-from ValidateForm import ValidateAll
-from ValidateForm import ValidateMethod
+from ValidateForm import EmailFormatException
+from ValidateForm import PhoneFormatException
+from ValidateForm import FieldsRequiredException
+from ValidateForm import validateMethod
 
 app = Flask(__name__)
 app.config.from_object(__name__)
@@ -30,22 +30,6 @@ formatter = logging.Formatter(app.config['LOGGING_FORMAT'])
 handler.setFormatter(formatter)
 app.logger.addHandler(handler)
 
-'''
-#function to validate the email id
-def is_email_address_valid(email):
-	"""Validate the email address using a regex."""
-	if not re.match(r'^[a-zA-Z0-9._]+@([a-zA-Z])+\.([a-zA-Z]+)$', email):
-		return False
-	return True
-
-#function to validate the phone number
-def is_phone_number_valid(phone_number):
-	"""Validate the phonr number using a regex."""
-	
-	if not re.match(r'(\+[0-9]+\s*)?(\([0-9]+\))?[\s0-9\-]+[0-9]+', phone_number):
-		return False
-	return True
-'''
 
 #@app.route is a decorator used to match URLs to view functions in flask apps
 #This is to show the register page for the users to enter the required fields
@@ -59,9 +43,7 @@ def registerform():
 @app.route("/add",methods=['POST'])
 def add():
 	app.logger.info(str(request.form))
-	db = get_db()
 
-	now = datetime.now()
 	name=request.form.get('PersonVisiting')
 	email=request.form.get('Email')
 	phone_number=request.form.get('Contact')
@@ -70,23 +52,25 @@ def add():
 	dict={'PersonVisiting':name,'Email':email,'Contact':phone_number,'PersonToVisit':employee_name}
 	errors=''
 	try:
-		ValidateMethod(name,email,phone_number,employee_name)
-	except ValidateAll:
+		validateMethod(name,email,phone_number,employee_name)
+	except FieldsRequiredException:
 		errors="<p>Please enter all the fields.</p>"
-	except ValidateEmail:
+	except EmailFormatException:
 		errors=errors+" <p>Please enter a valid email address</p>"
-	except ValidatePhoneNumber:
+	except PhoneFormatException:
 		errors=errors+" <p>Please enter a valid phone number</p>"
 	
 	if errors:
 		return render_template('register.html', dict=dict,errors=errors)
 
+	db = get_db()
+	now = datetime.now()
 	        
 	db.execute('insert into visitors (visitor_name, email, phone_number, employee_name, visit_date) values (?, ?, ?, ?, ?)',
 	[name,email,phone_number,employee_name,now])
 	db.commit()
 	
-	flash('New entry was successfully posted')
+	#flash('New entry was successfully posted')
 
 	return redirect("/")
 	
@@ -123,7 +107,6 @@ def history():
 	#message gets displayed on the screen with the file name to which the data has been exported to excel file
 	message=''
 	if request.args.get('flag') =="Export to excel":
-		print "Query is ",query
 		message=export(items)
 
 	return render_template('history.html',message=message,fromdate=fromdate,todate=todate,items=items)
@@ -149,17 +132,17 @@ def export(items):
 	third_col=sheet.col(2);
 	fourth_col=sheet.col(3);
 	fifth_col=sheet.col(4);
-	sixth_col=sheet.col(5);
+	
 	#xlwt by default sets the width to 11 characters. Width value of an integer is 1/256 of the width of the 
 	#character '0' 
 
 	#set the width of the columns to 256*w where w is the length of the characters required
-	first_col.width=256*4       
+	first_col.width=256*40      
 	second_col.width=256*40
-	third_col.width=256*40
-	fourth_col.width=256*20
+	third_col.width=256*20
+	fourth_col.width=256*40
 	fifth_col.width=256*40
-	sixth_col.width=256*40
+	
 		
 	#To set the styles in excel
 	BG = xlwt.Pattern() 
@@ -171,18 +154,18 @@ def export(items):
 
 	
 	#implementing the cell style in the headers of the excel file
-	sheet.write(0,1,'Visitor Name',FontStyle)
-	sheet.write(0,2,'Email',FontStyle)
-	sheet.write(0,3,'Phone number',FontStyle)
-	sheet.write(0,4,'Employee Name',FontStyle)
-	sheet.write(0,5,'Visit date',FontStyle)
+	sheet.write(0,0,'Visitor Name',FontStyle)
+	sheet.write(0,1,'Email',FontStyle)
+	sheet.write(0,2,'Phone number',FontStyle)
+	sheet.write(0,3,'Employee Name',FontStyle)
+	sheet.write(0,4,'Visit date',FontStyle)
 	for i,v in enumerate(items):
-		sheet.write(i+1,0,v[0])
-		sheet.write(i+1,1,v[1])
-		sheet.write(i+1,2,v[2])
-		sheet.write(i+1,3,v[3])
-		sheet.write(i+1,4,v[4])
-	  	sheet.write(i+1,5,v[5])
+		#sheet.write(i+1,0,v[0])
+		sheet.write(i+1,0,v[1])
+		sheet.write(i+1,1,v[2])
+		sheet.write(i+1,2,v[3])
+		sheet.write(i+1,3,v[4])
+	  	sheet.write(i+1,4,v[5])
 	workbook.save(file)
 	message="File has been saved to "+file
 	return message

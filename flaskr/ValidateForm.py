@@ -1,26 +1,26 @@
 import re
-class ValidateEmail(Exception):
+class EmailFormatException(Exception):
 	pass
 
-class ValidatePhoneNumber(Exception):
+class PhoneFormatException(Exception):
 	pass
 
-class ValidateAll(Exception):
+class FieldsRequiredException(Exception):
 	pass
 
 #function to validate the form fields
-def ValidateMethod(name,email,phone_number,employee_name):
+def validateMethod(name,email,phone_number,employee_name):
 
 	# Check if all the fields are non-empty and raise an error otherwise
 	if not name or not email or not phone_number or not employee_name:
-		raise ValidateAll
+		raise FieldsRequiredException
 	
 	else:
 		if not re.match(r'^[a-zA-Z0-9._]+@([a-zA-Z])+\.([a-zA-Z]+)$', email):
-			raise ValidateEmail
+			raise EmailFormatException
 			
 		if not re.match(r'^(\d{3})\-(\d{3})\-(\d{4})$',phone_number):
-			raise ValidatePhoneNumber
+			raise PhoneFormatException
 			
 		
 	

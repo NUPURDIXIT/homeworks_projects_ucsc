@@ -67,7 +67,11 @@ div.button {
     cursor: pointer;
 }
 div.error{color: red}
-
+label{
+	width: 200px;
+	display:inline-block;
+}
+h3{color:blue;}
 
 	</style>
 
@@ -90,58 +94,42 @@ div.error{color: red}
 		{{ errors|safe }}
 		</div>
 		{% endif %}
-		<div class="label">
-			<label for="Name">
-				<div class="span">
-					<span>Name </span>
-				</div>
-			</label>
-		</div>
 		<div class="input">
+			<label for="Name">
+				<span>Name </span>
+			</label>
+
 			<input type="text" id="Name" name="PersonVisiting" value="{{ dict['PersonVisiting'] }}">
 			
 		</div>
 	
 	<br>
 		
-		<div class="label">
-			<label for="Email">
-				<div class="span">
-					<span>Email Address </span>
-				</div>
-			</label>
-		</div>
-
 		<div class="input">
+			<label for="Email">
+				<span>Email Address </span>
+			</label>
 			<input type="Text" id="Email" name="Email" value="{{ dict['Email'] }}">
 			
 		</div>
 	
 
 	<br>
-	
-		<div class="label">
-			<label for="Contact">
-				<div class="span">
-					<span>Phone Number </span>
-				</div>
-			</label>
-		</div>
 		<div class="input">
+			<label for="Contact">
+				<span>Phone Number (XXX-XXX-XXXX) </span>
+			</label>
+
 			<input type="Text" id="Contact" name="Contact" value="{{ dict['Contact'] }}">
 			
 		</div>
 	
 	<br>
 	
-		<div class="label">
-			<label for="Visitorname">
-				<div class="span">
-					<span>Visiting </span>
-				</div>
-			</label>
-		</div>
 		<div class="input">
+			<label for="Visitorname">
+				<span>Visiting </span>
+			</label>
 			<input type="text" id="Name" name="PersonToVisit" value="{{ dict['PersonToVisit'] }}">
 			
 		</div>
@@ -158,11 +146,14 @@ div.error{color: red}
 <form action="/history">
 	
 	<div class="button">
-		<input type="submit" value="Visitors list">
+		<input type="submit" value="All Visitors">
+		
 	</div>
-</form>
 	<br>
-<form action="/history">
+	<h3> Select from and to date to get a filtered list of visitors by clicking on 'Filter Visitors' button</h3>
+	
+		
+	<br>
 	<div class="label">
 		<label for="fromdate"><span>From Date : </span></label>
 	</div>
@@ -176,9 +167,12 @@ div.error{color: red}
 	<div class="input">
 		<input type="date" id="todate" name="todate" value="1">
 	</div>
+	<br>
 	<div class="button">
-		<input type="submit" value="Search Option">
+		<input type="submit" value="Filter Visitors">
 	</div>
+		
+	
 
 </form>
 
