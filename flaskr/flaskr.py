@@ -70,8 +70,6 @@ def add():
 	[name,email,phone_number,employee_name,now])
 	db.commit()
 	
-	#flash('New entry was successfully posted')
-
 	return redirect("/")
 	
 
