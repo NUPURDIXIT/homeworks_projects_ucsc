@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Loan Calculator</title>
+    <style>
+        .heading{color:black;padding-left:20px}
+        .heading1{color:black;padding-left:40px}
+        .label{width:30%;text-align: left}
+        .input{display:block;width:70%;float:right;text-align: left}
+        .output{display:block;width:70%;float:right;text-align: left}
+        .label-input{
+            padding: 10px;}
+        .errors{color:red;float:right;text-align: left}
+
+    </style>
+</head>
+<body>
+<div class="heading">
+    <h4><span>   Enter Loan Data: </span></h4>
+</div>
+<div class="main">
+    <form>
+        <div class="label-input">
+            <span class="label">
+                <label for="LA">Amount of the Loan($):</label>
+            </span>
+            <span class="input">
+                <input type="number" id="LA" name="LoanAmount" >
+            </span>
+            <p class="errors" id="errors1">
+
+            </p>
+        </div>
+        <div class="label-input">
+            <span class="label">
+                <label for="AI">Annual Interest(%):</label>
+            </span>
+            <span class="input">
+                <input type="number" id="AI" name="AnnualInterest" required>
+            </span>
+            <p class="errors" id="errors2">
+
+            </p>
+        </div>
+        <div class="label-input">
+            <span class="label">
+                <label for="RPY">Repayment period(years):</label>
+            </span>
+            <span class="input">
+                <input type="number" id="RPY" name="RePayYears" required>
+            </span>
+            <p class="errors" id="errors3">
+
+            </p>
+        </div>
+        <div class="label-input">
+            <span class="label">
+                <label for="zip">Zipcode(to find lenders):</label>
+            </span>
+            <span class="input">
+                <input type="number" id="zip" name="Zipcode">
+            </span>
+
+        </div>
+        <div class="label-input">
+            <span class="label">
+                <label><b>Approximate Payments:</b></label>
+            </span>
+            <span class="input">
+                <input type="button" value="Calculate" onclick="calculate()">
+            </span>
+        </div>
+        <div class="label-input">
+            <span class="label">
+                <label>Monthly payment:</label>
+            </span>
+            <span class="input" id="output1">
+
+            </span>
+
+        </div>
+        <div class="label-input">
+            <span class="label">
+                <label>Total payment:</label>
+            </span>
+            <span class="input" id="output2">
+
+            </span>
+        </div>
+        <div class="label-input">
+            <span class="label">
+                <label>Total interest:</label>
+            </span>
+
+            <span class="input" id="output3">
+
+            </span>
+
+        </div>
+        <div class=label-input>
+            <span class="heading1">
+                <label><b>Sponsors:</b></label>
+            </span>
+            <span class="output">
+                <label> Apply for your loan with one of these fine lenders:</label>
+            </span>
+
+        </div>
+        <span id="sponsors">
+             
+        </span>
+
+        
+    </form>
+</div>
+<script src="LoanCalculator.js"></script>
+</body>
+</html>

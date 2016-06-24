@@ -88,7 +88,7 @@ def history():
 	if todate==None:
 		todate=''
 
-	#Build the query to be executed in 2 cases: 1. Complete list is to be retrieved and 2.Filetered list on 
+	#Build the query to be executed in 2 cases: 1. Complete list is to be retrieved and 2.Filtered list on 
 	# the basis of from and to date
 	query = 'select * from visitors where 1 = 1' 
 
@@ -135,11 +135,11 @@ def export(items):
 	#character '0' 
 
 	#set the width of the columns to 256*w where w is the length of the characters required
-	first_col.width=256*40      
-	second_col.width=256*40
-	third_col.width=256*20
-	fourth_col.width=256*40
-	fifth_col.width=256*40
+	first_col.width=256*20      
+	second_col.width=256*30
+	third_col.width=256*15
+	fourth_col.width=256*20
+	fifth_col.width=256*30
 	
 		
 	#To set the styles in excel
@@ -158,7 +158,6 @@ def export(items):
 	sheet.write(0,3,'Employee Name',FontStyle)
 	sheet.write(0,4,'Visit date',FontStyle)
 	for i,v in enumerate(items):
-		#sheet.write(i+1,0,v[0])
 		sheet.write(i+1,0,v[1])
 		sheet.write(i+1,1,v[2])
 		sheet.write(i+1,2,v[3])
