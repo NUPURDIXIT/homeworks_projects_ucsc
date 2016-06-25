@@ -4,14 +4,36 @@
     <meta charset="UTF-8">
     <title>Loan Calculator</title>
     <style>
-        .heading{color:black;padding-left:20px}
-        .heading1{color:black;padding-left:40px}
-        .label{width:30%;text-align: left}
-        .input{display:block;width:70%;float:right;text-align: left}
-        .output{display:block;width:70%;float:right;text-align: left}
+        .heading{
+            color:black;
+            padding-left:20px;
+        }
+        .heading1{
+            color:black;
+            padding-left:40px;
+        }
+        .label{
+            width:30%;
+            text-align: left;
+            display: inline-block;
+        }
+        .input{
+            width:30%;
+            text-align: left;
+        }
+        .output{
+            display:block;
+            width:70%;
+            float:right;
+            text-align: left;
+        }
         .label-input{
-            padding: 10px;}
-        .errors{color:red;float:right;text-align: left}
+            padding: 10px;
+        }
+        .errors{
+            color:red;
+            text-align: right;
+        }
 
     </style>
 </head>
@@ -28,9 +50,9 @@
             <span class="input">
                 <input type="number" id="LA" name="LoanAmount" >
             </span>
-            <p class="errors" id="errors1">
+            <span class="errors" id="errors1">
 
-            </p>
+            </span>
         </div>
         <div class="label-input">
             <span class="label">
@@ -39,9 +61,9 @@
             <span class="input">
                 <input type="number" id="AI" name="AnnualInterest" required>
             </span>
-            <p class="errors" id="errors2">
+            <span class="errors" id="errors2">
 
-            </p>
+            </span>
         </div>
         <div class="label-input">
             <span class="label">
@@ -50,9 +72,9 @@
             <span class="input">
                 <input type="number" id="RPY" name="RePayYears" required>
             </span>
-            <p class="errors" id="errors3">
+            <span  class="errors" id="errors3">
 
-            </p>
+            </span>
         </div>
         <div class="label-input">
             <span class="label">

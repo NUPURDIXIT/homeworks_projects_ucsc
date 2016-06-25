@@ -3,68 +3,68 @@
  */
 function calculate() {
     
-        
-        var loanAmount = document.getElementById("LA").value;
-        var AnnualInterest = document.getElementById("AI").value;
-        var rePayYears = document.getElementById("RPY").value;
-        var zipcode=document.getElementById("zip").value;
-        console.log("loan amount is:"+loanAmount)
-        console.log("flag is:"+flag)
-            
-            if(loanAmount==''){
-                flag=false;
-                document.getElementById("errors1").innerHTML="Please enter a valid loan amount"
-                
-            }
-            else{
-                flag=true
-            }
-            
-            if(AnnualInterest==''){
-                document.getElementById("errors2").innerHTML="Please enter a valid Annual Interest"
-                flag=false
-            }
-            else{
-                flag=true
-            }
+    document.getElementById("errors1").innerHTML="";
+    document.getElementById("errors2").innerHTML="";
+    document.getElementById("errors3").innerHTML="";
+    
+    var loanAmount = document.getElementById("LA").value;
+    var AnnualInterest = document.getElementById("AI").value;
+    var rePayYears = document.getElementById("RPY").value;
+    var zipcode=document.getElementById("zip").value;
+    console.log("loan amount is:"+loanAmount)
 
-            if(rePayYears==''){
-                document.getElementById("errors3").innerHTML="Please enter valid Years"
-                flag=false
-            }
-            else{
-                flag=true
-            }
-        
+    
+    if(!isValidInput(loanAmount, AnnualInterest, rePayYears)){
+        return;
+    } 
 
-        if(flag==true){
-            document.getElementById("errors1").innerHTML=""
-            document.getElementById("errors2").innerHTML=""
-            document.getElementById("errors3").innerHTML=""
-            var rePayYearsInMonths = rePayYears * 12;
-            var AnnIntPerMonth = AnnualInterest / 1200;
+    var rePayYearsInMonths = rePayYears * 12;
+    var AnnIntPerMonth = AnnualInterest / 1200;
 
-            
-            var monthlyPayment = loanAmount * AnnIntPerMonth / (1 - (Math.pow(1 / (1 + AnnIntPerMonth), rePayYearsInMonths)));
-            output1 = '$' + monthlyPayment
-            document.getElementById('output1').innerHTML = output1;
+    
+    var monthlyPayment = loanAmount * AnnIntPerMonth / (1 - (Math.pow(1 / (1 + AnnIntPerMonth), rePayYearsInMonths)));
+    monthlyPayment = monthlyPayment.toFixed(2);
+    output1 = '$' + monthlyPayment
+    document.getElementById('output1').innerHTML = output1;
 
-            var totalPayment = ((AnnIntPerMonth * loanAmount) / (1 - Math.pow((1 + AnnIntPerMonth), (-1 * rePayYearsInMonths)))) * rePayYearsInMonths
-            output2 = '$' + totalPayment
-            document.getElementById('output2').innerHTML = output2;
+    var totalPayment = monthlyPayment*rePayYearsInMonths;
+    totalPayment = totalPayment.toFixed(2);
+    output2 = '$' + totalPayment
+    document.getElementById('output2').innerHTML = output2;
 
-            var totalInterest = (rePayYearsInMonths * AnnIntPerMonth) - loanAmount;
-            output3 = '$' + totalInterest
-            document.getElementById('output3').innerHTML = output3;
+    var totalInterest = (rePayYearsInMonths * monthlyPayment) - loanAmount;
+    totalInterest = totalInterest.toFixed(2);
+    output3 = '$' + totalInterest
+    document.getElementById('output3').innerHTML = output3;
 
-            console.log("zipcode is"+zipcode)
-            if(zipcode!=''){
+    console.log("zipcode is"+zipcode)
+    if(zipcode!=''){
 
-                getLenders(loanAmount,AnnualInterest,rePayYears,zipcode)
-            }
-        }
+        getLenders(loanAmount,AnnualInterest,rePayYears,zipcode)
+    }
     
 
+}
+
+function isValidInput(loanAmount, AnnualInterest, rePayYears){
+    var valid = true;
+    if(loanAmount==''){
+        document.getElementById("errors1").innerHTML="Please enter a valid loan amount";
+        valid = false;
+        
+    }
+    
+    if(AnnualInterest==''){
+        document.getElementById("errors2").innerHTML="Please enter a valid Annual Interest";
+        valid = false;
+    }
+
+    if(rePayYears==''){
+        document.getElementById("errors3").innerHTML="Please enter valid Years";
+        valid = false;
+    }
+
+    return valid;
 }
 
 
@@ -85,7 +85,7 @@ function getLenders(loanAmount,AnnualInterest,rePayYears,zipcode){
             console.log(req.responseText);
             console.log(items);
             for (var item in items) {
-                output +=items[item]
+                output += "<a href='"+items[item]+"'>"+items[item]+ "</a><br>";
             }
         }
 
