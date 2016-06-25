@@ -14,7 +14,7 @@ function calculate() {
     console.log("loan amount is:"+loanAmount)
 
     
-    if(!isValidInput(loanAmount, AnnualInterest, rePayYears)){
+    if(!isValidInput(loanAmount, AnnualInterest, rePayYears,zipcode)){
         return;
     } 
 
@@ -50,7 +50,7 @@ function calculate() {
 
 }
 
-function isValidInput(loanAmount, AnnualInterest, rePayYears){
+function isValidInput(loanAmount, AnnualInterest, rePayYears,zipcode){
     var valid = true;
     if(loanAmount=='' || loanAmount<0){
         document.getElementById("errors1").innerHTML="Please enter a valid loan amount";
@@ -67,6 +67,13 @@ function isValidInput(loanAmount, AnnualInterest, rePayYears){
         document.getElementById("errors3").innerHTML="Please enter valid Years";
         valid = false;
     }
+    if(zipcode<0){
+         document.getElementById("errors4").innerHTML="Please enter valid Zipcode";
+        valid = false;
+
+    }
+
+    
 
     return valid;
 }
