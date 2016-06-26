@@ -8,7 +8,7 @@ function calculate() {
     document.getElementById("errors3").innerHTML="";
     document.getElementById("errors4").innerHTML="";
     document.getElementById("sponsors").innerHTML="";
-    
+
     var loanAmount = document.getElementById("LA").value;
     var AnnualInterest = document.getElementById("AI").value;
     var rePayYears = document.getElementById("RPY").value;
@@ -44,7 +44,7 @@ function calculate() {
     }
 
     console.log("zipcode is"+zipcode)
-    if(zipcode!=''){
+    if(isFinite(zipcode) && zipcode!=''){
 
         getLenders(loanAmount,AnnualInterest,rePayYears,zipcode)
     }
