@@ -44,7 +44,7 @@ function calculate() {
     }
 
     console.log("zipcode is"+zipcode)
-    if(isFinite(zipcode) && zipcode!=''){
+    if(!isNaN(parseInt(zipcode)) && zipcode!=''){
 
         getLenders(loanAmount,AnnualInterest,rePayYears,zipcode)
     }
