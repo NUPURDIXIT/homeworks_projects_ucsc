@@ -69,14 +69,14 @@ function isValidInput(loanAmount, AnnualInterest, rePayYears,zipcode){
         document.getElementById("errors3").innerHTML="Please enter valid Years";
         valid = false;
     }
-    if(zipcode<0 || (isNaN(parseInt(zipcode)))){
-        document.getElementById("errors4").innerHTML="Please enter valid Zipcode";
-        valid = false;
-     }
-
-    
-
-    
+    var numbers=/^[0-9]+$/;
+    if(zipcode!=''){
+        if(zipcode <0 || !zipcode.match(numbers)){
+            console.log("value of zip code is"+zipcode);
+            document.getElementById("errors4").innerHTML="Please enter valid Zipcode";
+            valid = false;
+         }
+    }
 
     return valid;
 }
