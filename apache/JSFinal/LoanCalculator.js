@@ -7,6 +7,7 @@ function calculate() {
     document.getElementById("errors2").innerHTML="";
     document.getElementById("errors3").innerHTML="";
     document.getElementById("errors4").innerHTML="";
+    document.getElementById("sponsors").innerHTML="";
     
     var loanAmount = document.getElementById("LA").value;
     var AnnualInterest = document.getElementById("AI").value;
