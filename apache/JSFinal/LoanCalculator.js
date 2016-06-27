@@ -70,16 +70,16 @@ function save(amount,apr,years,zipcode){
     }
 }
 
-
+//Function to display graph showing monthly loan balance, equity and interest
 function chart(loanAmount,AnnIntPerMonth,monthlyPayment,rePayYearsInMonths) {
     var graph = document.getElementById("graph"); // Get the <canvas> tag
-    graph.width = graph.width; // Magic to clear and reset the canvas element
+    graph.width = graph.width; // This is to clear and reset the canvas element
     // If we're called with no arguments, or if this browser does not support
     // graphics in a <canvas> element, then just return now.
     if (arguments.length === 0 || !graph.getContext) return;
-    // Get the "context" object for the <canvas> that defines the drawing API
+    // Get the "context" object for the canvas
     var g = graph.getContext("2d"); // All drawing is done with this object
-    var width = graph.width,
+    var width = graph.width,  
         height = graph.height; // Get canvas size
     // These functions convert payment numbers and dollar amounts to pixels
     function paymentToX(n) {
@@ -99,7 +99,7 @@ function chart(loanAmount,AnnIntPerMonth,monthlyPayment,rePayYearsInMonths) {
     g.fill(); // Fill the triangle
     g.font = "bold 12px sans-serif"; // Define a font
     g.fillText("Total Interest Payments", 20, 20); // Draw text in legend
-    // Cumulative equity is non-linear and trickier to chart
+   
     var equity = 0;
     g.beginPath(); // Begin a new shape
     g.moveTo(paymentToX(0), amountToY(0)); // starting at lower-left
@@ -111,7 +111,7 @@ function chart(loanAmount,AnnIntPerMonth,monthlyPayment,rePayYearsInMonths) {
     }
     g.lineTo(paymentToX(rePayYearsInMonths), amountToY(0)); // Line back to X axis
     g.closePath(); // And back to start point
-    g.fillStyle = "green"; // Now use green paint
+    g.fillStyle = "orange"; // Now use orange paint
     g.fill(); // And fill area under curve
     g.fillText("Total Equity", 20, 35); // Label it in green
     // Loop again, as above, but chart loan balance as a thick black line
@@ -140,7 +140,7 @@ function chart(loanAmount,AnnIntPerMonth,monthlyPayment,rePayYearsInMonths) {
     // Mark payment amounts along the right edge
     g.textAlign = "right"; // Right-justify text
     g.textBaseline = "middle"; // Center it vertically
-    var ticks = [monthlyPayment * rePayYearsInMonths, loanAmount]; // The two points we'll mark
+    var ticks = [monthlyPayment * rePayYearsInMonths, loanAmount]; // The two points which would be marked
     var rightEdge = paymentToX(rePayYearsInMonths); // X coordinate of Y axis
     for (var i = 0; i < ticks.length; i++) { // For each of the 2 points
         var y = amountToY(ticks[i]); // Compute Y position of tick

@@ -80,9 +80,7 @@ public class PowerBall {
 		} else if ((count == 3) && lastDigitMatchCount == 1) {
 			cash = 100;
 			System.out.println("You won cash = $100 ");
-		}
-
-		else if ((count == 4) && lastDigitMatchCount == 0) {
+		} else if ((count == 4) && lastDigitMatchCount == 0) {
 			cash = 100;
 			System.out.println("You won cash = $100 ");
 		} else if ((count == 4) && lastDigitMatchCount == 1) {
