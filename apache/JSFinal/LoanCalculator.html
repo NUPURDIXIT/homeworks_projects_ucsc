@@ -35,6 +35,13 @@
             text-align: right;
         }
 
+        .graph{
+            display:inline-block;
+            float:right;
+
+        }
+        
+
     </style>
 </head>
 <body>
@@ -43,6 +50,12 @@
 </div>
 <div class="main">
     <form>
+        <div class="graph">
+            <canvas id="graph" width="500" height="300">
+            
+            </canvas>
+            
+        </div> 
         <div class="label-input">
             <span class="label">
                 <label for="LA">Amount of the Loan($):</label>
@@ -88,6 +101,9 @@
             </span>
 
         </div>
+
+
+
         <div class="label-input">
             <span class="label">
                 <label><b>Approximate Payments:</b></label>
