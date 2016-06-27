@@ -40,11 +40,15 @@ public class PowerBall {
 		int count = 0;
 		int PBcount = 0;
 		boolean flag = true;
+		System.out.println();
+		printNumbers();
+		
 		if (ticketNumber.length != 6) {
 			System.out.println("The ticket is faulty as it does not have 6 numbers in it");
 			return;
 		}
-
+		
+		
 		for (int i = 0; i < 5; i++) {
 
 			for (int j = 0; j < 5; j++) {
@@ -55,14 +59,11 @@ public class PowerBall {
 			}
 		}
 
-		// System.out.println("Value of flag is"+flag);
-
-		// if(flag==true){
-
+		
 		if (winningNumber[5] == ticketNumber[5]) {
 			PBcount = 1;
 		}
-		// }
+		
 		if ((count == 0) && PBcount == 1) {
 			cash = 4;
 			System.out.println("You won cash = $4 ");
@@ -93,8 +94,9 @@ public class PowerBall {
 			cash = 100000000;
 			System.out.println("You won JACKPOT!!! ");
 		} else {
-			System.out.println("Sorry, you did not win anything");
+			System.out.println("You did not win");
 		}
+		
 	}
 
 	// }
@@ -144,7 +146,8 @@ public class PowerBall {
 		System.out.println("----------testRandom()  starts-------------");
 		display = false;
 		int[] w = { 4, 8, 19, 27, 24, 10 };
-		int max = 1000000;
+		//int max = 1000000;
+		int max = 10;
 		long c = 0;
 		System.out.println("Buying " + max + " tickets of worth " + max * 2 + "$");
 		for (int i = 0; i < max; ++i) {
