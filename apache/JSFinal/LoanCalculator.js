@@ -61,6 +61,28 @@ function calculate() {
 
 }
 
+//Method to ensure valid data has been input on click of calculate button , else throw an error 
+ function isValidInput(loanAmount, AnnualInterest, rePayYears,zipcode){
+     var valid = true;
+ 
+     if(!isValidLoanAmount(loanAmount)){
+        valid = false;
+     }
+
+     if(!isValidAnnualInterest(AnnualInterest)){
+        valid = false;
+     }
+     if(!isValidRePayYears(rePayYears)){
+        valid = false;
+     }
+     if(!isValidZipcode(zipcode)){
+        valid = false;
+     }
+
+     return valid;
+ }
+
+//function to save the values
 function save(amount,apr,years,zipcode){
     if(window.localStorage){
         localStorage.loanAmount=amount;
@@ -149,8 +171,11 @@ function chart(loanAmount,AnnIntPerMonth,monthlyPayment,rePayYearsInMonths) {
         rightEdge - 5, y);
     }
 }
-//Method to ensure valid data has been input , else throw an error
-function isValidInput(loanAmount, AnnualInterest, rePayYears,zipcode){
+
+//Method to ensure valid data has been input for loan amount, else throw an error
+function isValidLoanAmount(loanAmount){
+    document.getElementById("errors1").innerHTML="";
+
     var valid = true;
 
     //if the loan amount is either blank or negative then throw an error
@@ -159,20 +184,43 @@ function isValidInput(loanAmount, AnnualInterest, rePayYears,zipcode){
         valid = false;
         
     }
+     return valid;
+}
+
+
+//Method to ensure valid data has been input for Annual Interest, else throw an error
+function isValidAnnualInterest(AnnualInterest){
+    document.getElementById("errors2").innerHTML="";
+
+    var valid = true;
     
      //if the annual interest is either blank or negative then throw an error
     if(AnnualInterest=='' || AnnualInterest<0){
         document.getElementById("errors2").innerHTML="Please enter a valid Annual Interest";
         valid = false;
     }
+     return valid;
+}
 
+//Method to ensure valid data has been input for repay years, else throw an error
+function isValidRePayYears(rePayYears){
+    document.getElementById("errors3").innerHTML="";
+
+    var valid = true;
+    
      //if the repay years is either blank or negative then throw an error
     if(rePayYears=='' || rePayYears<0){
         document.getElementById("errors3").innerHTML="Please enter valid Years";
         valid = false;
     }
+     return valid;
+}
 
-    //Check for zipcode to have only digits using regular expression
+//Check for zipcode to have only digits using regular expression else throw an error
+function isValidZipcode(zipcode){
+    document.getElementById("errors4").innerHTML="";
+
+    var valid = true;
     var numbers=/^[0-9]+$/;
     if(zipcode!=''){
         if(zipcode <0 || !zipcode.match(numbers)){

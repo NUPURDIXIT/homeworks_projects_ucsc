@@ -40,12 +40,13 @@ public class PowerBall {
 		int count = 0;
 		int lastDigitMatchCount = 0;
 		boolean flag = true;
-		System.out.println();
 		printNumbers();
 		
 		//If ticket does not have 6 numbers then throw an error and return without any additional processing
 		if (ticketNumber.length != 6) {
-			System.out.println("The ticket is faulty as it does not have 6 numbers in it");
+			if(display){
+				System.out.println("The ticket is faulty as it does not have 6 numbers in it");
+			}
 			return;
 		}
 		
@@ -67,33 +68,53 @@ public class PowerBall {
 		//Check for different scenarios and set the cash accordingly.Also display the message accordingly
 		if ((count == 0) && lastDigitMatchCount == 1) {
 			cash = 4;
-			System.out.println("You won cash = $4 ");
+			if(display){
+				System.out.println("You won cash = $4 ");
+			}
 		} else if ((count == 1) && lastDigitMatchCount == 1) {
 			cash = 4;
-			System.out.println("You won cash = $4 ");
+			if(display){
+				System.out.println("You won cash = $4 ");
+			}
 		} else if ((count == 2) && lastDigitMatchCount == 1) {
 			cash = 7;
-			System.out.println("You won cash = $7 ");
+			if(display){
+				System.out.println("You won cash = $7 ");
+			}
 		} else if ((count == 3) && lastDigitMatchCount == 0) {
 			cash = 7;
-			System.out.println("You won cash = $7 ");
+			if(display){
+				System.out.println("You won cash = $7 ");
+			}
 		} else if ((count == 3) && lastDigitMatchCount == 1) {
 			cash = 100;
-			System.out.println("You won cash = $100 ");
+			if(display){
+				System.out.println("You won cash = $100 ");
+			}
 		} else if ((count == 4) && lastDigitMatchCount == 0) {
 			cash = 100;
-			System.out.println("You won cash = $100 ");
+			if(display){	
+				System.out.println("You won cash = $100 ");
+			}
 		} else if ((count == 4) && lastDigitMatchCount == 1) {
 			cash = 50000;
-			System.out.println("You won cash = $50000 ");
+			if(display){
+				System.out.println("You won cash = $50000 ");
+			}
 		} else if ((count == 5) && lastDigitMatchCount == 0) {
 			cash = 1000000;
-			System.out.println("You won cash = $1000000 ");
+			if(display){
+				System.out.println("You won cash = $1000000 ");
+			}
 		} else if ((count == 5) && lastDigitMatchCount == 1) {
 			cash = 100000000;
-			System.out.println("You won JACKPOT!!! ");
+			if(display){
+				System.out.println("You won JACKPOT!!! ");
+			}
 		} else {
-			System.out.println("You did not win");
+			if(display){
+				System.out.println("You did not win");
+			}
 		}
 		
 	}
