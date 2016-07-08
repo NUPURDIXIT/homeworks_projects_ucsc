@@ -1,0 +1,42 @@
+PowerBall.java
+winningNumber 
+  4   8  19  27  24  10
+ticketNumber  
+  4   8  19  27  24  10
+You won JACKPOT!!! 
+winningNumber 
+  4   8  19  27  24  10
+ticketNumber  
+ 24  27  19   8   4  10
+You won JACKPOT!!! 
+winningNumber 
+  4   8  19  27  24  10
+ticketNumber  
+ 24  27  19   8   4   5
+You won cash = $1000000 
+winningNumber 
+  4   8  19  27  24  10
+ticketNumber  
+124 127 119  18  14  10
+You won cash = $4 
+winningNumber 
+  4   8  19  27  24  10
+ticketNumber  
+124 127 119  18  14   5
+You did not win
+winningNumber 
+  4   8  19  27  24  10
+ticketNumber  
+124 127 119  18  14
+The ticket is faulty as it does not have 6 numbers in it
+winningNumber 
+  4   8  19  27  24  10
+ticketNumber  
+124 124  19 119  18  14
+You did not win
+----------testRandom()  starts-------------
+Buying 1000000 tickets of worth 2000000$
+Out of 1000000 times you win 245258$
+Loss = -1754742
+----------testRandom()  ends-------------
+Done
