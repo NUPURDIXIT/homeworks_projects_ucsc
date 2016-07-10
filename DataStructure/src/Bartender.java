@@ -31,14 +31,19 @@ public class Bartender {
 			if(show){
 				System.out.println(count+":"+" l= "+newMin+" "+"r= "+ newMax+" "+"m= "+midNum+"\n");
 			}
+			
+			//if the number matches the mid number hen returb the count
 			if(midNum==g){
 				return count;
 			}
+			
+			//if the number to be guessed is greater than the mid number then set find it in right half, thus set the min to midnum+1
 			else if(midNum<g){
 				
 				newMin=midNum+1;
 				
 			}
+			//if the number to be guessed is less than the mid number then set find it in left half, thus set the max to midnum-1
 			else {
 				newMax=midNum-1;
 								
