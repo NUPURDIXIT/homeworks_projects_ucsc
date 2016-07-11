@@ -1,4 +1,3 @@
-import java.math.BigDecimal;
 import java.math.BigInteger;
 
 public class Series {
@@ -14,7 +13,7 @@ public class Series {
 		
 		System.out.println("-----function seriesConvergeAbsolutely() STARTS-----------------------------------");
 		seriesConvergeAbsolutely();
-		System.out.println("-----function tesLog() ENDS-----------------------------------");
+		System.out.println("-----function seriesConvergeAbsolutely() ENDS-----------------------------------");
 		System.out.println();
 		
 		
@@ -26,7 +25,7 @@ public class Series {
 		
 		System.out.println("-----function printForPrimes() STARTS-----------------------------------");
 		printForPrimes();
-		for(int i=100;i<=1000000;i*=10){
+		for(int i=100;i<=100000000;i*=10){
 			numberOfPrimes(i);
 		}
 		System.out.println("-----function printForPrimes() ENDS-----------------------------------");
@@ -41,8 +40,10 @@ public class Series {
 
 	}
 	
+
 /****************************************************************************************************************************************
 	The below function prints the log,lg,le 
+ 
 ****************************************************************************************************************************************/	
 	
 	public static void testLog(){
@@ -51,6 +52,7 @@ public class Series {
 		for(int i=1;i<10;i++){
 			System.out.format("%-6d %-5.5f %s %-5.5f %s %-5.5f",i,(Math.log(i)/Math.log(10))," ",(Math.log(i)/Math.log(2))," ",Math.log(i));
 			System.out.println();
+			
 		}
 		
 		//Logic prints the log,lg,le for n=10 to 100 at a step of n=n+10
@@ -76,8 +78,10 @@ public class Series {
 	
 /****************************************************************************************************************************************
 	The below function computes the result of the given series and the output obtained is 2.
+ 
 ****************************************************************************************************************************************/
 	public static void seriesConvergeAbsolutely(){
+		//PrintWriter output=new PrintWriter();
 		
 		double geometricSum = 0;
 		
@@ -86,7 +90,9 @@ public class Series {
 			geometricSum+=Math.pow(0.5, i);
 		}
 		
+		//The sum of the given geometric series is 2.
 		System.out.println("Sum of Geometric series is : "+(int)geometricSum);
+		//output.println("Sum of Geometric series is : "+(int)geometricSum);
 	}
 	
 	
@@ -106,7 +112,7 @@ public class Series {
 		//Printing the sum by adding the numbers in the given harmonic series
 		System.out.println("Sum of given harmonic series is: "+harmonicSum);
 		
-		//Printing the sum obtained via formula
+		//Printing the sum obtained via formula. This shows that both the results are equal.
 		System.out.println("Sum of given harmonic series computed through formula is: "+sumByFormula);
 	}
 	
@@ -123,14 +129,19 @@ public class Series {
 		BigInteger two=new BigInteger("2");
 		BigInteger one=new BigInteger("1");
 		
+		//Calculate the number of rice in each square and total
 		for(int i=1;i<=64;i++){
 			power=two.pow(i-1);
 			sumOfRice=sumOfRice.add(power);
+			//Print the number of rice in each square
 			System.out.println("On square "+i+" = "+ power);
 		}
 		
+		//To calculate the total number of rice as per the formula for Geometric series
 		sumOfRiceByFormula=two.pow(64);
 		sumOfRiceByFormula.subtract(one);
+		
+		//Print the total rice
 		System.out.println("Total rice = "+sumOfRice);
 		System.out.println("Total rice computed by the formula for geometric series = "+sumOfRiceByFormula);
 		
@@ -139,24 +150,30 @@ public class Series {
 	
 
 /****************************************************************************************************************************************
-	The below function prints the expected number of primes using logic and formula n/ln(n)-1
+	The below function prints the expected headings at top of numberOfPrimes() function
 ****************************************************************************************************************************************/
-	
 	
 	public static void printForPrimes(){
 		System.out.println("n         #P(n)    n/log n -1");
-		//System.out.println();
 		System.out.println("-------------------------------------------");
 	}
 	
+/****************************************************************************************************************************************
+	The below function prints the expected number of primes using logic and formula n/ln(n)-1
+****************************************************************************************************************************************/
 	public static void numberOfPrimes(int num){
 		int count=0;
 		boolean flag=true;
 		double valueByFormula=0;
 		
+		//Starting testing from 4 since 2 and 3 are known prime numbers so would increase the count by 2 at end.
 		for(int i=4;i<=num;i++){
 			flag=true;
+			//Calculate the square root of the number to be tested at the beginning of loop so thats its not computed in every iteration
 			int sqrt=(int)Math.sqrt(i);
+			
+			//Run the loop till the square root of the number t be tested for prime. If its divisible by any then set flag to false and break
+			
 			for(int j=2;j<=sqrt;j++){
 				if(i%j==0){
 					flag=false;
@@ -164,15 +181,18 @@ public class Series {
 				}
 				
 			}
+			//If the number to be tested is not divisible by any number in the loop above then inrease the count of prime numbers obtained in the range
 			if(flag){
 				count++;
 			}
+			
+			//To calculate the number of primes by the Prime nUmber Theorem 
 			valueByFormula=((num*1.0)/(Math.log(num)-1));
 			
 		}
 		
-		
-		System.out.format("%-10d %-8d %-8d",num,count+2,(int)valueByFormula);
+		//Print the count of prime numbers obtained
+		System.out.format("%-12d %-8d %-8d",num,count+2,(int)valueByFormula);
 		System.out.println();
 	}
 	

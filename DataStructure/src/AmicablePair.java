@@ -15,6 +15,10 @@ public class AmicablePair {
 	int count = 0;
 	List<Integer> listPairs = new ArrayList<Integer>();
 	
+	
+/*
+ * Invoke findAmicablePairs and keep storing the obtained pairs in a list so that they are not computed again
+ */
 	AmicablePair(int n) {
 		this.n = n;
 
@@ -26,6 +30,9 @@ public class AmicablePair {
 
 	}
 
+/*
+ * This method finds all the amicable pairs
+ */
 	private void findAmicablePairs(int num) {
 		
 		int sum1 = 1;
@@ -60,6 +67,9 @@ public class AmicablePair {
 
 	}
 
+/*
+ * Calculate the time taken to find all the amicable pairs till 100000000.
+ */
 	public static double timeInSec(long endTime, long startTime) {
 		long duration = (endTime - startTime);
 		if (duration > 0) {
@@ -77,7 +87,7 @@ public class AmicablePair {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		long startTime = System.nanoTime();
-		int n = 10000000;
+		int n = 100000000;
 		AmicablePair a = new AmicablePair(n);
 
 		long EndTime = System.nanoTime();
