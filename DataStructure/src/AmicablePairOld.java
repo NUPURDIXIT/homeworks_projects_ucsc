@@ -9,7 +9,7 @@ import java.util.List;
  * @author nupurdixit
  * 
  */
-public class AmicablePair {
+public class AmicablePairOld {
 	private int n;
 	int num;
 	int count = 0;
@@ -19,7 +19,7 @@ public class AmicablePair {
 /*
  * Invoke findAmicablePairs and keep storing the obtained pairs in a list so that they are not computed again
  */
-	AmicablePair(int n) {
+	AmicablePairOld(int n) {
 		this.n = n;
 
 		for (int i = 2; i < n; i++) {
@@ -88,10 +88,10 @@ public class AmicablePair {
 		// TODO Auto-generated method stub
 		long startTime = System.nanoTime();
 		int n = 100000000;
-		AmicablePair a = new AmicablePair(n);
+		AmicablePairOld a = new AmicablePairOld(n);
 
 		long EndTime = System.nanoTime();
-		double duration = AmicablePair.timeInSec(EndTime, startTime);
+		double duration = AmicablePairOld.timeInSec(EndTime, startTime);
 		System.out.println("Run time " + duration + " : secs");
 
 	}
