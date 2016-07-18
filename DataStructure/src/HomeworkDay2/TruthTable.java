@@ -1,3 +1,4 @@
+package HomeworkDay2;
 import java.lang.*;
 import java.math.*;
 

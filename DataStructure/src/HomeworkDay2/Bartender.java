@@ -1,3 +1,4 @@
+package HomeworkDay2;
 import java.util.Random;
 public class Bartender {
 	private int min;

@@ -1,4 +1,4 @@
-package HomeworkDay2;
+//package HomeworkDay2;
 
 public class primeRevised {
 	static int count=0;

@@ -1,3 +1,4 @@
+package HomeworkDay2;
 import java.math.BigInteger;
 
 public class Series {

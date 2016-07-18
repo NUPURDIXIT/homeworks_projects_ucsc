@@ -1,12 +1,3 @@
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Arrays;
-
-import com.sun.xml.internal.bind.v2.schemagen.xmlschema.List;
-
-//package Homework_Day3;
-
-//import Homework_Day3.IntUtil;
 
 public class Letter {
 	private static final IntUtil u = new IntUtil();
@@ -34,39 +25,37 @@ public class Letter {
 		}
 	
 
-/*
- * With subroutine
- */
-	
-	/**
-	private static int length(int [] s, int x) {
 		
-		return subLength(s,x,x);
-		}
-		
-		
-	private static int subLength(int[] s,int n,int a){
-		
-			if(s[a]==n){
-				return 0;
-			}
-			return subLength(s,n,s[a])+1;
-		
-	}
-	*/
-	
 	/*
-	 * Method to find the hops
+	 * Method to find the number of hops
 	 */
 	private static int length(int[] s,int x){
+		
+		//If the element to be searched is at the same index of start then , return the number of hops to be 0
+		if(s[x]==x){
+			return 0;
+		}
+		
+		//clone the original array to another array named copyOriginalArray and perform Recursion calls to obtain the result.
+		//This is done to ensure that the original array remains unchanged after this operation.
+		
 		int[] copyOriginalArray=s.clone();
+		
+		//On returning back to the index from where the recursion call started the value would be -1, thus return -1
 		if(copyOriginalArray[x] == -1){
 			return -1;
 		}
+		
 		int t = copyOriginalArray[x];
+		
+		//For every traversed index,overwrite the value of that index with -1.
 		copyOriginalArray[x] = -1;
+		
+		//Add 1 to each recursion call, this keeps track of the number of hops
 		return length(copyOriginalArray, t)+1;
 	}
+	
+	
 		
 	public static void testbed() {
 		int s[] = {5,1,0,4,2,3} ;
