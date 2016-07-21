@@ -1,26 +1,19 @@
 
+public class LetterThruSwap {
 
-	
-	import java.lang.reflect.Array;
-	import java.util.ArrayList;
-	import java.util.Arrays;
-
-	import com.sun.xml.internal.bind.v2.schemagen.xmlschema.List;
-
-	//package Homework_Day3;
-
-	//import Homework_Day3.IntUtil;
-
-	public class LetterThruSubRoutine {
 		private static final IntUtil u = new IntUtil();
 		
 		
 		
 		public static void main(String[] args) {
 			// TODO Auto-generated method stub
+			long startTime=System.nanoTime();
 			System.out.println("Length.java");
 			testbed() ;
 			testbed1() ;
+			long endTime=System.nanoTime();
+			double duration = u.timeInSec(endTime, startTime);
+			System.out.println("Duration is : "+duration);
 			
 		}
 		
@@ -45,17 +38,18 @@
 		
 		private static int length(int [] s, int x) {
 			
-			return subLength(s,x,x);
+			if(s[x]==x){
+				return 0;
 			}
-			
-			
-		private static int subLength(int[] s,int n,int a){
-			
-				if(s[a]==n){
-					return 0;
-				}
-				return subLength(s,n,s[a])+1;
-			
+			int y=s[x];
+			int temp=s[x];
+			s[x]=s[y];
+			s[y]=temp;
+			int l=length(s,x)+1;
+			temp=s[y];
+			s[y]=s[x];
+			s[x]=temp;
+			return l;
 		}
 		
 			
@@ -94,5 +88,6 @@
 		
 
 	}
+
 
 

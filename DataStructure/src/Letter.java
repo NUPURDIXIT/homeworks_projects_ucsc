@@ -1,5 +1,5 @@
 
-public class LetterRevised {
+public class Letter {
 
 	private static final IntUtil u = new IntUtil();
 	
@@ -7,9 +7,13 @@ public class LetterRevised {
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
+		long startTime=System.nanoTime();
 		System.out.println("Length.java");
 		testbed() ;
 		testbed1() ;
+		long endTime=System.nanoTime();
+		double duration = u.timeInSec(endTime, startTime);
+		System.out.println("Duration is : "+duration);
 	}
 	
 	
@@ -33,10 +37,10 @@ public class LetterRevised {
 	private static int length(int[] s,int x){
 		Integer a=Integer.MAX_VALUE;
 		
-		////Exit case for recursion: last step of 2nd round when index is < 0 but value is > 0
+		//Exit case for recursion: last step of 2nd round when index is < 0 but value is > 0
 		if(x<0 && s[x+a]>=0) return -1;
-		
-		//2nd round of restoring array values stars when we see first value < 0, not in this round we are not incrementing steps
+		 
+		//2nd round of restoring array values starts when we see first value < 0, in this round we are not incrementing steps
 		if(x<0 || s[x]<0){
 			x=(x<0)?x+a:x;
 			int b=s[x];
@@ -44,7 +48,7 @@ public class LetterRevised {
 			return length(s,b);
 		}
 		
-		//1st round: subtract Integer.MAX_VALUE from every value seen and increment step counter
+		//1st round: subtract Integer.MAX_VALUE from every value seen and increment step counter. Through this all values would ultimately set to negative number
 		s[x]=s[x]-a;
 		return length(s,s[x]+a)+1;
 		

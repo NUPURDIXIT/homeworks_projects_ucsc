@@ -225,4 +225,14 @@ class IntUtil{
   public static void main(String[] args) {
     System.out.println("IntUtil.java");
   }
+  
+  public double timeInSec(long endTime, long startTime) {
+	    long duration = (endTime - startTime);
+	    if (duration > 0) {
+	      double dm = (duration/1000000.0); //Milliseconds
+	      double d = dm/1000.0; //seconds
+	      return d ;
+	    }
+	    return 0.0 ;
+	  }
 }

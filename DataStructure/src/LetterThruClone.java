@@ -1,5 +1,5 @@
 
-public class Letter {
+public class LetterThruClone {
 	private static final IntUtil u = new IntUtil();
 	
 	
