@@ -1,7 +1,7 @@
 
 public class Die {
 	private int sides;
-	
+	private int value;
 	public Die(){
 		sides=6;
 	}
@@ -12,12 +12,12 @@ public class Die {
 	
 	public void roll(){
 		
+		value=(int) (Math.random()*sides+1);
 		
 	}
 	
 	public int getValue(){
-		int value=(int) (Math.random()*sides);
-			
+		
 		return value;
 	}
 }

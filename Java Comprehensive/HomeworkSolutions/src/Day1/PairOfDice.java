@@ -6,7 +6,7 @@ public class PairOfDice {
 	int sides;
 	
 	
-	Die d=new Die(6);
+	
 	public PairOfDice(){
 		this.objDice1=new Die(6);
 		this.objDice2=new Die(6);
@@ -21,17 +21,18 @@ public class PairOfDice {
 	}
 	
 	public void roll(){
-		
+		objDice1.roll();
+		objDice2.roll();
 		
 	}
 	
 	public int getValue1(){
-		System.out.println("PAIR OF DICE value 1 is:"+ objDice1.getValue());
+		//System.out.println("PAIR OF DICE value 1 is:"+ objDice1.getValue());
 		return objDice1.getValue();
 	}
 	
 	public int getValue2(){
-		System.out.println("PAIR OF DICE value 2 is:"+ objDice2.getValue());
+		//System.out.println("PAIR OF DICE value 2 is:"+ objDice2.getValue());
 		return objDice2.getValue();
 	}
 	
