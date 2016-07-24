@@ -1,3 +1,4 @@
+package Day3;
 
 public class PairOfDice {
 	Die objDice1;

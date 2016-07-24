@@ -1,4 +1,4 @@
-
+//Program to dynamically grow the array of integer type. Here you can dynamically add the value at any index.
 public class IntArray {
 	private int capacity;
 	private int[] darray;
@@ -47,6 +47,7 @@ public class IntArray {
 		}
 		if(pos>=length){
 			length=pos+1;
+			//System.out.println("Length of array is "+length);
 		}
 		darray[pos]=value;
 	}
@@ -63,7 +64,7 @@ public class IntArray {
 		}
 		u.myassert(s<ns);
 		allocate(ns);
-		for(int i=0;i<s;i++){
+		for(int i=0;i<ts;i++){
 			darray[i]=ta[i];
 		}
 		ta=null;
@@ -71,11 +72,14 @@ public class IntArray {
 	
 	private static void test1(){
 		IntArray a=new IntArray();
-		a.setPos(4, 50);
-		a.setPos(45, 5000);
-		a.setPos(670, 8000);
-		int x=a.getPos(5000);
-		System.out.println("The value 5000 is at position :"+x);
+		display=true;
+		a.setPos(4,50);
+		a.setPos(45,5000);
+		a.setPos(670,8000);
+		int x=a.getPos(45);
+		System.out.println("Length of array is :"+a.getSize());
+		
+		
 	}
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub

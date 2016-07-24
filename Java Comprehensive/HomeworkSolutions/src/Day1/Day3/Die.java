@@ -1,3 +1,4 @@
+package Day3;
 
 public class Die {
 	private int sides;
