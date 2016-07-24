@@ -31,22 +31,26 @@ class Cstring {
   }
   
   public Cstring(String str){
-	  this();
-	  strToCharArray(str);
-  }
-  
-  public void strToCharArray(String str){
-		
+		this();
 		char[] chArray=str.toCharArray();
 		int chArrayLength=chArray.length;
-		//System.out.println("Array length is: "+chArrayLength);
-		for(int i=0;i<chArrayLength;i++){
+		for(int i=0;i<chArray.length;i++){
 			//System.out.println("chArray["+i+"] is: "+chArray[i]);
 			d.set(i,chArray[i]);
 		}
 		d.set(chArrayLength, '\0');
-  }
-  
+		
+	}
+	
+	public Cstring(char[] ch){
+		this();
+		for(int i=0;i<ch.length;i++){
+			//System.out.println("chArray["+i+"] is: "+chArray[i]);
+			d.set(i,ch[i]);
+		}
+		d.set(ch.length, '\0');
+	}
+ 
   
   public void pLn(String t){
 	  System.out.println();
@@ -58,6 +62,7 @@ class Cstring {
 	  for(int i=0;i<d.size();i++){
 		  System.out.print(d.get(i));
 	  }
+	  System.out.println();
   }
   
   
@@ -72,26 +77,80 @@ class Cstring {
 	  
   }
   
-  /*
-  public Cstring add(String string){
-	  
+  public Cstring clone(){
+	  char[] ch=new char[this.d.size()];
+	  for(int i=0;i<this.d.size();i++){
+		  ch[i]=this.d.get(i);
+	  }
+	  Cstring c=new Cstring(ch);
+	  return c;
   }
   
-  public void append(String string ){
-	  
-  }
+  public Cstring add(Cstring b){
+		int objLength=this.d.size();
+		//System.out.println("objlength is: "+objLength);
+		int bLength=b.d.size();
+		//System.out.println("blength is: "+bLength);
+		char[] concatArray=new char[objLength+bLength];
+		for(int i=0;i<objLength;i++){
+			concatArray[i]=this.d.get(i);
+		}
+		
+		int i=objLength;
+		int j=0;
+		while(j<bLength){
+			concatArray[i]=b.d.get(j);
+			i++;
+			j++;
+		}
+		Cstring s=new Cstring(concatArray);
+		return s;
+	}
+	
+	public Cstring add(String str){
+		Cstring a=new Cstring(str);
+		Cstring d=this.add(a);
+		return d;
+	}
   
-  public boolean isEqual(){
-	  
-  }
   
-   public Cstring clone(){
-	   Cstring c=new Cstring();
-	   Cstring d=c;   
-	   return d;
-   }
- 
-  */
+	public Cstring append(Cstring a){
+		  int objLength=this.d.size();
+			
+			int aLength=a.d.size();
+	
+			int i=objLength;
+			int j=0;
+			while(j<aLength){
+				this.d.set(i,a.d.get(j));
+				i++;
+				j++;
+			}
+			//SampleString s=new SampleString(concatArray);
+			return a;
+	  }
+	  
+	  public Cstring append(String str){
+		  Cstring b=new Cstring(str);
+		  Cstring d=this.append(b);
+		  return d;
+	  }
+  
+	  public boolean isEqual(Cstring a){
+		  int objLength=this.d.size();
+		  int aLength=a.d.size();
+		  if(objLength==aLength){
+			for(int i=0;i<objLength;i++){
+				if(this.d.get(i)!=a.d.get(i))
+					return false;
+			}
+			return true;
+		 }
+		 return false;
+		 
+	  }
+  
+  
   //CANNOT CHANGE ANYTHING BELOW 
   private static void testBasic() {
     Cstring a = new Cstring('b') ;
@@ -109,6 +168,8 @@ class Cstring {
     f.reverse() ;
     f.pLn("f' = ") ;
   }
+  
+  
   
   
   private static void testAdd() {
