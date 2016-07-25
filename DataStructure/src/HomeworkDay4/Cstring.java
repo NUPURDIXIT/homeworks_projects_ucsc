@@ -59,8 +59,8 @@ class Cstring {
 		  System.out.print(ch[i]);
 	  }
 	 
-	  for(int i=0;i<d.size();i++){
-		  System.out.print(d.get(i));
+	  for(int i=0;i<this.d.size();i++){
+		  System.out.print(this.d.get(i));
 	  }
 	  System.out.println();
   }
@@ -149,9 +149,8 @@ class Cstring {
 				i++;
 				j++;
 			}
-			//System.out.println("Size of a after appending is :"+this.d.size());
 			this.d.set(this.d.size(), '\0');
-			return a;
+			return this;
 	  }
 	  
 	  public Cstring append(String str){

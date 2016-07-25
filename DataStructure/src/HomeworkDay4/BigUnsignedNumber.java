@@ -57,9 +57,7 @@ class BigUnsignedNumber {
   
   public BigUnsignedNumber add(BigUnsignedNumber b){
 	  	int i=this.d.size();
-	  	System.out.println("Size of first array is: "+i);
 	  	int j=b.d.size();
-	  	System.out.println("Size of second array is: "+j);
 	  	int sizeDifference=0;
 	  	if(i>j){
 	  		sizeDifference=i-j;
@@ -86,52 +84,29 @@ class BigUnsignedNumber {
 	  	
 	  	char[] num1=this.d.getCharArray(this.d);
 	  	char[] num2=b.d.getCharArray(b.d);
-	  	for(int p=0;p<num1.length;p++){
-		  	System.out.println("num1 is :"+num1[p]);
-		  	System.out.println("num2 is :"+num2[p]);
-	  	}
-	  	for(int p=0;p<num1.length;p++){
-		  	//System.out.println("num1 is :"+num1[p]);
-		  	System.out.println("num2 is :"+num2[p]);
-	  	}
+	  	
 	  	int carry=0;
 	  	int sum=0;
 	  	
+	  	BigUnsignedNumber num=new BigUnsignedNumber();
 	  	
-	  	BigUnsignedNumber num=new BigUnsignedNumber(sum);
-	  	System.out.println("i is: "+i);
-	  	System.out.println("j is: "+j);
-	  	num.d.setCharArray(i,'\0' );
+	  	num.d.setCharArray(i,'\0');
 	  	while(i>0 || j>0){
 	  		sum=0;
 	  		int digitA=num1[i-1]-'0';
-	  		System.out.println("DigitA is:"+digitA);
 	  		int digitB=num2[j-1]-'0';
-	  		System.out.println("DigitB is:"+digitB);
 	  		sum=(digitA+digitB+carry)%10;
-	  		System.out.println("Sum is:"+sum);
 	  		carry=(digitA+digitB+carry)/10;
-	  		num.d.setCharArray(i,'\0');
-	  		System.out.println("carry is:"+carry);
-	  		//num.d.setCharArray(i-1, (char)sum);
 	  		num.d.append(sum+"");
-	  		num.pLn("num is : ");
 	  		i--;
 	  		j--;
-	  		
 	  	}
 	  	if(carry>0){
 	  		num.d.append(carry+"");
 	  	}
-	  	System.out.println("size of num is: "+num.d.size());
-	  	
 	  	num.d.reverse();
-	  	
-		System.out.println("size of num after reverse is: "+num.d.size());
-	  	num.d.setCharArray(num.d.size()-1, '\0');
 	  	return num;
- 
-  }
+}
   
   public BigUnsignedNumber add(String s){
 	  BigUnsignedNumber b= new BigUnsignedNumber(s);
@@ -139,25 +114,14 @@ class BigUnsignedNumber {
 	  return c;
   }
   
- 
+ public boolean isEqual(BigUnsignedNumber b){
+	 boolean flag=this.d.isEqual(b.d);
+	 return flag;
+	 
+ }
   
   private static void test1() {
-	  BigUnsignedNumber a = new BigUnsignedNumber(9789) ;
-	    BigUnsignedNumber b = new BigUnsignedNumber(100000) ;
-	    a.pLn("a = ") ;
-	    b.pLn("b = ") ;
-	    BigUnsignedNumber c = a.add(b) ;
-	    c.pLn("a + b =  c = ") ;
-	    a = a.add(b) ;
-	    a.pLn("a = a + b = ") ;
-	    //BigUnsignedNumber d = new BigUnsignedNumber("3490529510847650949147849619903898133417764638493387843990820577");
-	    //BigUnsignedNumber e = new BigUnsignedNumber("32769132993266709549961988190834461413177642967992942539798288533");
-	    //BigUnsignedNumber f = d.add(e) ;
-	    /*BigUnsignedNumber g = new BigUnsignedNumber("36259662504114360499109837810738359546595407606486330383789109110") ;
-	    //u.myassert(f.isEqual(g));                                           
-	    d.pLn("d = ") ;
-	    e.pLn("e = ") ;*/
-	    //f.pLn("f = ") ;
+	  BigUnsignedNumber b = new BigUnsignedNumber(10);
     
   }
   

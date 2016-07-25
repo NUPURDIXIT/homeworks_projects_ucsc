@@ -37,11 +37,12 @@ class BigUnsignedNumberTester {
     a.pLn("a = a + b = ") ;
     BigUnsignedNumber d = new BigUnsignedNumber("3490529510847650949147849619903898133417764638493387843990820577");
     BigUnsignedNumber e = new BigUnsignedNumber("32769132993266709549961988190834461413177642967992942539798288533");
-    BigUnsignedNumber f = d.add(e) ;
-    BigUnsignedNumber g = new BigUnsignedNumber("36259662504114360499109837810738359546595407606486330383789109110") ;
-    //u.myassert(f.isEqual(g));                                           
     d.pLn("d = ") ;
     e.pLn("e = ") ;
+    BigUnsignedNumber f = d.add(e) ;
+    BigUnsignedNumber g = new BigUnsignedNumber("36259662504114360499109837810738359546595407606486330383789109110") ;
+    u.myassert(f.isEqual(g));                                           
+   
     f.pLn("f = ") ;
   }
   
