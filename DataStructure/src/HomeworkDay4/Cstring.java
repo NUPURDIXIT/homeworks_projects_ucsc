@@ -66,6 +66,24 @@ class Cstring {
   }
   
   
+  public char[] getCharArray(Cstring c){
+	  char[] ch=new char[c.d.size()];
+	  for(int i=0;i<c.d.size();i++){
+		  ch[i]=c.d.get(i);
+	  }
+	  return ch;
+  }
+  
+  public void setCharArray(int pos,char value){
+	  	this.d.set(pos,value);
+	}
+	
+  public char get(int pos){
+	  char c=this.d.get(pos);
+	  return c;
+	 
+  }
+  
   public void reverse(){
 	  int i = 0 ;
 	    int j = d.size() - 1 ;
@@ -74,7 +92,12 @@ class Cstring {
 	      ++i ;
 	      --j ;
 	    }
+	    d.set(d.size(),'\0');
 	  
+  }
+  
+  public int size(){
+	  return d.size();
   }
   
   public Cstring clone(){
@@ -126,7 +149,8 @@ class Cstring {
 				i++;
 				j++;
 			}
-			//SampleString s=new SampleString(concatArray);
+			//System.out.println("Size of a after appending is :"+this.d.size());
+			this.d.set(this.d.size(), '\0');
 			return a;
 	  }
 	  
