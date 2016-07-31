@@ -119,6 +119,26 @@ class BigUnsignedNumber {
 	 return flag;
 	 
  }
+ 
+ public BigUnsignedNumber mult(BigUnsignedNumber num){
+	 int i=this.d.size();
+	 int j=num.d.size();
+	 char[] num1=new char[i];
+	 char[] num2=new char[j];
+	 char[] num3=new char[i+j];
+	 int sum;
+	 int carry=0;
+	 BigUnsignedNumber prod=new BigUnsignedNumber();
+	 prod.d.setCharArray(i+j+1, '\0');
+	 while(i>=0 || j>=0){
+			 sum=0;
+			 sum=(num2[b]*num1[a])%10;
+			 carry=sum/10;
+			 prod.d.append(sum+"");
+		 }
+		 
+	 
+ }
   
   private static void test1() {
 	  BigUnsignedNumber b = new BigUnsignedNumber(10);
