@@ -1,6 +1,8 @@
 package Day3;
 import java.util.Scanner;
 
+import MidTerm.Validator;
+
 public class NumberToWords {
 	int numberToConvert;
 	static String[] oneToNine=new String[]{"","one","two","three","four","five","six","seven","eight","nine"};

@@ -1,6 +1,8 @@
 package Day3;
 import java.util.Scanner;
 
+import MidTerm.Validator;
+
 public class CircleApp {
 
 	public static void main(String[] args) {

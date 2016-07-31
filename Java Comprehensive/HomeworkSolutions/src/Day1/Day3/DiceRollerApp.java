@@ -1,6 +1,8 @@
 package Day3;
 import java.util.Scanner;
 
+import MidTerm.Validator;
+
 public class DiceRollerApp {
 	String message;
 	PairOfDice p=new PairOfDice();
