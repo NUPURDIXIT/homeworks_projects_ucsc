@@ -43,7 +43,7 @@ public class Validator
 	        	flag=true;
 	        }
 	        else{
-	        	System.out.println("Error! Entry must be '"+s1+"' or '"+s2+"'.Try again");
+	        	System.out.println("Error! Entry must be '"+s1+"' or '"+s2+"'.Try again\n");
 	        }
 	       
     	}

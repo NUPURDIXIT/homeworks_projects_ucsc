@@ -1,16 +1,14 @@
 import java.text.NumberFormat;
 
 public class SavingsAccount extends Account {
-	
-	//private double finalSavingsAccountBalance;
+	NumberFormat currency=NumberFormat.getCurrencyInstance();
 	private double savingsMonthlyInterestRate=1.0;
-	
+	private double savingsInterestPayment;
 	
 	public SavingsAccount(){
 		super();
-		//=1;
-		//finalSavingsAccountBalance=0.0;
 		savingsMonthlyInterestRate=1.0;
+		savingsInterestPayment=0.0;
 	}
 	
 	public void addInterest(){
@@ -23,52 +21,18 @@ public class SavingsAccount extends Account {
 	}
 	
 	public double getFees(){
-		//NumberFormat currency=NumberFormat.getCurrencyInstance();
 		return 0;
 	}
-	
+	public String getFormattedFees(){
+		return "0";
+	}
 	
 	public double getInterestPayment(){
-		//NumberFormat currency=NumberFormat.getCurrencyInstance();
-		
 		double savingsInterestPayment=(1.0/100)*(super.getBalance());
-		//currency.format
 		return savingsInterestPayment;
 	}
 	
-	
-	/*public double getFinalSavingsAccountBalance(){
-		return finalSavingsAccountBalance;
+	public String getFormattedInterestPayment(){
+		return currency.format(getInterestPayment());
 	}
-	
-	public void setFinalSavingsAccountBalance(double finalCheckingAccountBalance){
-		this.finalSavingsAccountBalance=calculateFinalAccountBalance();
-	}
-	
-	public double getWithdrawalAmount(){
-		return withdrawalAmount;
-	}
-	
-	public void setWithdrawalAmount(double withdrawalAmount){
-		this.withdrawalAmount=withdrawalAmount;
-	}
-	
-	public double getDepositAmount(){
-		return depositAmount;
-	}
-	
-	public void setDepositAmount(double depositAmount){
-		this.depositAmount=depositAmount;
-	}*/
-	
-	
-	
-	
-	/*public double calculateFinalAccountBalance(){
-		finalSavingsAccountBalance=super.getStartingBalance()-getWithdrawalAmount()+getDepositAmount()+getSavingsInterestPayment();
-		return finalSavingsAccountBalance;
-	}*/
-	
-	
-	
 }

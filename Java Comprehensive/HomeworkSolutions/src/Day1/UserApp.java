@@ -30,10 +30,10 @@ public class UserApp {
 		
 		System.out.println("Welcome to the Account application\n");
 		
-		System.out.println("Starting Balances");
+		System.out.println("Starting Balances"); 
 				
-		System.out.println("Checking:      "+currency.format(checking.getBalance())+"\n"+
-				           "Savings:       "+currency.format(savings.getBalance()));
+		System.out.println("Checking:  "+checking.getFormattedBalance()+"\n"+
+		                   "Savings:   "+savings.getFormattedBalance());
 		
 		System.out.println("\nEnter the transactions for the month\n");
 		
@@ -41,7 +41,7 @@ public class UserApp {
 			String choiceToWithdrawOrDeposit=Validator.getChoiceString(sc, "Withdrawal or deposit? (w/d): ", "w", "d");
 			String choiceOfAcountType=Validator.getChoiceString(sc, "Checking or savings? (c/s): ", "c", "s");
 			
-			amount=Validator.getDouble(sc, "Amount?");
+			amount=Validator.getDouble(sc, "Amount?: ");
 			
 			System.out.println();
 			
@@ -93,15 +93,19 @@ public class UserApp {
 		//NumberFormat currency=NumberFormat.getCurrencyInstance();
 		System.out.println("\nMonthly Payment and Fees");
 		
-		System.out.println("Checking fee:              "+currency.format(checking.getFees())+"\n"+
-				           "Savings interest payment:  "+currency.format(savings.getInterestPayment()));
+		System.out.println("Checking fee:              "+  checking.getFormattedFees()+"\n"+
+				           "Savings interest payment:  "+savings.getFormattedInterestPayment());
 		
 		checking.finalBalance(flagToEndTransaction);
 		savings.finalBalance(flagToEndTransaction);
 				
 		System.out.println("\nFinal Balances\n"
-							+ "Checking:  "+currency.format(checking.getBalance())+"\n"+
-							  "Savings:   "+currency.format(savings.getBalance()));
+				+ "Checking:  "+checking.getFormattedBalance()+"\n"+
+				  "Savings:   "+savings.getFormattedBalance());
+		
+		//System.out.println("\nFinal Balances\n"
+		//					+ "Checking:  "+currency.format(checking.getBalance())+"\n"+
+		//					  "Savings:   "+currency.format(savings.getBalance()));
 		//return flagToEndTransaction;
 	}
 }
