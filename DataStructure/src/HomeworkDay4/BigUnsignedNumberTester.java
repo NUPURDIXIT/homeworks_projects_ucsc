@@ -97,7 +97,8 @@ class BigUnsignedNumberTester {
        BigUnsignedNumber ba = new BigUnsignedNumber(a) ;
        BigUnsignedNumber bb = new BigUnsignedNumber(b) ;
        BigUnsignedNumber ma = ba.add(bb) ;
-       u.myassert(ma.isEqual(a+b)) ;
+       ma.pLn("ma is:");
+       //u.myassert(ma.isEqual(a+b)) ;
       // BigUnsignedNumber mm = ba.mult(bb) ;
        //u.myassert(mm.isEqual(a*b)) ;
      }
@@ -133,8 +134,8 @@ class BigUnsignedNumberTester {
     testAdd() ;
     System.out.println("-----------mult----------------");
     testMult() ;
-    //System.out.println("-----------random----------------");
-    //testRandom() ;
+    System.out.println("-----------random----------------");
+    testRandom() ;
    System.out.println("-----------Factorial----------------");
     testFact() ;
   }
