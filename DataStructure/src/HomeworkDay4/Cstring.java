@@ -66,15 +66,16 @@ class Cstring {
   }
   
   
-  public char[] getCharArray(Cstring c){
-	  char[] ch=new char[c.d.size()];
-	  for(int i=0;i<c.d.size();i++){
-		  ch[i]=c.d.get(i);
-	  }
-	  return ch;
+  public CharArray getCharArray(){
+//	  char[] ch=new char[c.d.size()];
+//	  for(int i=0;i<c.d.size();i++){
+//		  ch[i]=c.d.get(i);
+//	  }
+//	  return ch;
+	  return this.d;
   }
   
-  public void setCharArray(int pos,char value){
+  public void setCharAtIndex(int pos,char value){
 	  	this.d.set(pos,value);
 	}
 	
@@ -173,6 +174,12 @@ class Cstring {
 		 
 	  }
   
+	  
+	 /* public boolean isEqual(String str){
+		  Cstring b=new Cstring(str);
+		  return this.isEqual(b);
+		  
+	  }*/
   
   //CANNOT CHANGE ANYTHING BELOW 
   private static void testBasic() {
