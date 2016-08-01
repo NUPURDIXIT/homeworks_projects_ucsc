@@ -146,131 +146,82 @@ class BigUnsignedNumber {
 	}
 
 	public BigUnsignedNumber mult(BigUnsignedNumber num) {
+		
+		//This will keep the output. Old school time method of multiplication
+		//each multiplication output will be added to this following the school time methodology
 		BigUnsignedNumber output = new BigUnsignedNumber();
+		//Initialized it with '0's
 		for (int i = 0; i < this.d.size() + num.d.size(); i++) {
 			output.d.setCharAtIndex(i, '0');
 		}
+		//Keeping track of index in output. Once multiplication is done, will reverse the output.
+		//that will be our answer
 		int outputIndex = 0;
-		int maxOutputIndex = 0;
-		// for(int i = 0; i<=10; i++){
-		// System.out.println(String.format("digit at %d: %d", i,
-		// output.getDigit(i)));
-		// }
-		for (int index = num.d.size() - 1; index >= 0; index--) {
-			int digit = num.getDigit(index);
-			int offset = num.d.size() - 1 - index;
+		
+		//from AxB (param 'num' will act as B in our logic)
+		//So looping through num from right to left
+		for (int numIndex = num.d.size() - 1; numIndex >= 0; numIndex--) {
+			int numDigit = num.getDigit(numIndex);
+			//offset is the count of "x", we used to add in school days 
+			int offset = num.d.size() - 1 - numIndex;
+			//ouputIndex start from offset (remember we are filling output in reverse order)
 			outputIndex = offset;
-			int carry = 0;
+			
+			//Carry got from multiplication of two digits
+			int multCarry = 0;
+			//Carry got from summation of two multiplications
 			int sumCarry = 0;
-			for (int index1 = d.size() - 1; index1 >= 0; index1--) {
-				int digit1 = getDigit(index1);
-				// System.out.println(String.format("Digit: %d, Digit1: %d",
-				// digit, digit1));
-				int temp = digit * digit1 + carry;
-				int toAdd = temp % 10;
-				carry = temp / 10;
+			for (int thisIndex = d.size() - 1; thisIndex >= 0; thisIndex--) {
+				int thisDigit = getDigit(thisIndex);
 
-				// System.out.println(String.format("toAdd: %d,
-				// getDigit(outputIndex): %d", toAdd,
-				// output.getDigit(outputIndex)));
-				int sum = output.getDigit(outputIndex) + toAdd + sumCarry;
+				//A[i]xB[j] + anyCarryFromPreviousMultiplication
+				int digitsMult = numDigit * thisDigit + multCarry;
+				//value to be added to output 
+				int multAdd = digitsMult % 10;
+				//value to be carried over
+				multCarry = digitsMult / 10;
 
-				// System.out.println(String.format("temp: %d, toAdd: %d, Carry:
-				// %d, sum: %d outputIndex: %d", temp, toAdd, carry, sum,
-				// outputIndex));
-				// System.out.println(String.format("sum10: %d,
-				// getDigit(outputIndex+1): %d, sum/10: %d", sum%10,
-				// output.getDigit(outputIndex+1), sum/10));
-				int temp1 = sum % 10;
+				int sum = output.getDigit(outputIndex) + multAdd + sumCarry;
+
+				int sumAdd = sum % 10;
 				sumCarry = sum / 10;
-				// int temp2 = output.getDigit(outputIndex+1)+sum/10;
-				output.setDigit(outputIndex, temp1);
-				// output.setDigit(outputIndex+1, temp2);
-				// System.out.println(String.format("temp1: %d, sumCarry: %d",
-				// temp1, sumCarry));
-				if (index1 == 0) {
-					int temp3 = output.getDigit(outputIndex + 1) + carry + sumCarry;
-					if(temp3 > 0){
+				output.setDigit(outputIndex, sumAdd);
+				//Handling for last index (in the last index of each inner loop, nothing will go to carry)
+				//multCarry and sumCarry of last the index, will be directly added to the next digit
+				if (thisIndex == 0) {
+					int thisLastDigitCarries = output.getDigit(outputIndex + 1) + multCarry + sumCarry;
+					if(thisLastDigitCarries > 0){
 						outputIndex += 1;
-						output.setDigit(outputIndex, temp3 % 10);
-						if(temp3 > 10){
+						output.setDigit(outputIndex, thisLastDigitCarries % 10);
+						if(thisLastDigitCarries > 10){
 							outputIndex += 1;
-							output.setDigit(outputIndex, temp3 / 10);
+							output.setDigit(outputIndex, thisLastDigitCarries / 10);
 							
 						}
 					}
-				}
-				if (outputIndex > maxOutputIndex) {
-					maxOutputIndex = outputIndex;
 				}
 				outputIndex++;
 
 			}
 		}
-		// System.out.println(String.format("maxOutputIndex: %d",
-		// maxOutputIndex));
-		// for(int i = 0; i<=10; i++){
-		// System.out.println(String.format("digit at %d: %d", i,
-		// output.getDigit(i)));
-		// }
-//		while(output.d.get(outputIndex) == 0){
-//			outputIndex--;
-//		}
-		for(int i = outputIndex; i>=0;i--){
+		
+		//TODO: couldn't find the exact reason, why extra '0' was appended sometimes.
+		//However quick fix for this is to, iterate from the end of output.
+		//And find correct position for added end character.
+		
+		for(int i = outputIndex; i>=1;i--){
 			if(output.getDigit(i) == 0){
 				outputIndex--;
 			}else{
 				break;
 			}
 		}
+		
 		output.d.setCharAtIndex(outputIndex+1, '\0');
+		//output is prepared but in reverse order, so reversing it to get final result
 		output.d.reverse();
 		return output;
 	}
-	// int i=this.d.size();
-	// // System.out.println("i is: "+i);
-	// int j=num.d.size();
-	// // System.out.println("j is: "+j);
-	//
-	// for(int a=1;a<result;a++){
-	// prod=num1.add(num);
-	// num1=prod;
-	// }
-	// return prod;
-	//
-	/*
-	 * int sum; // int[] list=new int[i]; int carry=0;
-	 * 
-	 * for(int a=0;a<i;a++){ this.d.setCharAtIndex(a, this.d.get(a));
-	 * 
-	 * // System.out.println("list is: "+a+"is :"+this.d.get(a));
-	 * 
-	 * }
-	 * 
-	 * for(int a=0;a<i;a++){ num.d.setCharAtIndex(a, num.d.get(a));
-	 * 
-	 * // System.out.println("list is: "+a+"is :"+this.d.get(a));
-	 * 
-	 * }
-	 * 
-	 * BigUnsignedNumber prod=new BigUnsignedNumber(); //BigUnsignedNumber
-	 * num1=num; BigUnsignedNumber zero=new BigUnsignedNumber('0');
-	 * BigUnsignedNumber one=new BigUnsignedNumber('1');
-	 * prod.d.setCharAtIndex(i+j+1, '\0'); int result=0; if(i<j){
-	 * BigUnsignedNumber num1=num; for(int a=0;a<i;a++){
-	 * result=(10*result)+this.d.get(a)-'0'; } if(result==0 || num==zero) return
-	 * zero; else if(result==1) return num; else if(num==one) return this; else{
-	 * for(int a=1;a<result;a++){ prod=num1.add(num); num1=prod; } return prod;
-	 * }
-	 * 
-	 * 
-	 * } else{ BigUnsignedNumber num1=this;
-	 * 
-	 * for(int a=0;a<j;a++){ result=(10*result)+num.d.get(a)-'0'; } if(result==0
-	 * || this==zero) return zero; else if(result==1) return this; else
-	 * if(this==one) return num; else{ for(int a=1;a<result;a++){
-	 * prod=num1.add(this); num1=prod; } return prod; } } }
-	 */
 
 	public static BigUnsignedNumber factorial(int num){
 		BigUnsignedNumber one=new BigUnsignedNumber('1');
