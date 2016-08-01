@@ -1,4 +1,8 @@
 package HomeworkDay4;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+
 /**
  * File Name: BigUnsignedNumber.java 
  * Infinite capacity Unsigned Number
@@ -122,23 +126,71 @@ class BigUnsignedNumber {
  
  public BigUnsignedNumber mult(BigUnsignedNumber num){
 	 int i=this.d.size();
+	// System.out.println("i is: "+i);
 	 int j=num.d.size();
-	 char[] num1=new char[i];
-	 char[] num2=new char[j];
-	 char[] num3=new char[i+j];
-	 int sum;
-	 int carry=0;
-	 BigUnsignedNumber prod=new BigUnsignedNumber();
-	 prod.d.setCharArray(i+j+1, '\0');
-	 while(i>=0 || j>=0){
-			 sum=0;
-			 sum=(num2[b]*num1[a])%10;
-			 carry=sum/10;
-			 prod.d.append(sum+"");
-		 }
-		 
+	// System.out.println("j is: "+j);
 	 
+	 int sum;
+	// int[] list=new int[i];
+	 int carry=0;
+	 
+	 for(int a=0;a<i;a++){
+		this.d.setCharArray(a, this.d.get(a));
+		
+	//	System.out.println("list is: "+a+"is :"+this.d.get(a));
+		 
+	 }
+	 
+	 for(int a=0;a<i;a++){
+			num.d.setCharArray(a, num.d.get(a));
+			
+		//	System.out.println("list is: "+a+"is :"+this.d.get(a));
+			 
+	 }
+		 
+	 BigUnsignedNumber prod=new BigUnsignedNumber();
+	 //BigUnsignedNumber num1=num;
+	 BigUnsignedNumber zero=new BigUnsignedNumber('0');
+	 BigUnsignedNumber one=new BigUnsignedNumber('1');
+	 prod.d.setCharArray(i+j+1, '\0');
+	 int result=0;
+	 if(i<j){
+		 BigUnsignedNumber num1=num;
+		 for(int a=0;a<i;a++){
+			 result=(10*result)+this.d.get(a)-'0';
+		 }
+		 if(result==0 || num==zero) return zero;
+		 else if(result==1) return num;
+		 else if(num==one) return this;
+		 else{
+			 for(int a=1;a<result;a++){
+				 prod=num1.add(num);
+				 num1=prod;
+			 }
+			 return prod;
+		 }
+			
+		 
+	 }
+	 else{
+		 BigUnsignedNumber num1=this;
+		 
+		 for(int a=0;a<j;a++){
+			 result=(10*result)+num.d.get(a)-'0';
+		 }
+		 if(result==0 || this==zero) return zero;
+		 else if(result==1) return this;
+		 else if(this==one) return num;
+		 else{
+			 for(int a=1;a<result;a++){
+				 prod=num1.add(this);
+				 num1=prod;
+			 }
+			 return prod;
+		 }
+	 }
  }
+	
   
   private static void test1() {
 	  BigUnsignedNumber b = new BigUnsignedNumber(10);
@@ -152,7 +204,17 @@ class BigUnsignedNumber {
   
   public static void main(String[] args) {
     System.out.println("BigUnsignedNumber.java");
-    testBench();
+    /*BigUnsignedNumber a = new BigUnsignedNumber(9789) ;
+    BigUnsignedNumber b = new BigUnsignedNumber(100000) ;
+    a.pLn("a = ") ;
+    b.pLn("b = ") ;
+    BigUnsignedNumber c = a.add(b) ;
+    c.pLn("a + b =  c = ") ;*/
+    //BigUnsignedNumber ba = new BigUnsignedNumber(240) ;
+    //BigUnsignedNumber bb = new BigUnsignedNumber(150) ;
+    //BigUnsignedNumber mm = ba.mult(bb) ;
+    //mm.pLn("mm=: ");
+    //testBench();
     System.out.println("Done");
   } 
 }
