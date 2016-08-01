@@ -119,15 +119,12 @@ class BigUnsignedNumber {
 	}
 
 	private void setDigit(int index, int ch) {
-		this.d.setCharAtIndex(index, Character.forDigit(ch, 10));
+		char cha = (char)(ch+'0');
+		this.d.setCharAtIndex(index, cha);
 	}
 
 	private int getDigit(int index) {
 		return this.d.get(index) - '0';
-	}
-
-	private void addDigitAtPosition(int index, int ch) {
-
 	}
 
 	public boolean isEqual(BigUnsignedNumber b) {
@@ -144,7 +141,7 @@ class BigUnsignedNumber {
 
 	public boolean isEqual(int num) {
 		BigUnsignedNumber b = new BigUnsignedNumber(num);
-		return b.isEqual(num);
+		return isEqual(b);
 
 	}
 
@@ -193,11 +190,18 @@ class BigUnsignedNumber {
 				// temp1, sumCarry));
 				if (index1 == 0) {
 					int temp3 = output.getDigit(outputIndex + 1) + carry + sumCarry;
-					output.setDigit(outputIndex + 1, temp3 % 10);
-					output.setDigit(outputIndex + 2, temp3 / 10);
+					if(temp3 > 0){
+						outputIndex += 1;
+						output.setDigit(outputIndex, temp3 % 10);
+						if(temp3 > 10){
+							outputIndex += 1;
+							output.setDigit(outputIndex, temp3 / 10);
+							
+						}
+					}
 				}
-				if (outputIndex + 1 > maxOutputIndex) {
-					maxOutputIndex = outputIndex + 1;
+				if (outputIndex > maxOutputIndex) {
+					maxOutputIndex = outputIndex;
 				}
 				outputIndex++;
 
@@ -209,7 +213,17 @@ class BigUnsignedNumber {
 		// System.out.println(String.format("digit at %d: %d", i,
 		// output.getDigit(i)));
 		// }
-		output.d.setCharAtIndex(maxOutputIndex + 1, '\0');
+//		while(output.d.get(outputIndex) == 0){
+//			outputIndex--;
+//		}
+		for(int i = outputIndex; i>=0;i--){
+			if(output.getDigit(i) == 0){
+				outputIndex--;
+			}else{
+				break;
+			}
+		}
+		output.d.setCharAtIndex(outputIndex+1, '\0');
 		output.d.reverse();
 		return output;
 	}
