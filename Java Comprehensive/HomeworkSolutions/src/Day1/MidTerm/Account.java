@@ -1,15 +1,10 @@
 //Name: 	   Nupur Dixit
 //Instructor:  Bineet Sharma
 //Date: 	   Aug 6,2016
-//Description: This program is the parent class for Savings and Current Account classes. It sets the starting balance,takes care of overdraft feature,
-//             Updates the balance as per withdrawal/deposit,has getter functions to get the formatted balance and has many abstract classes
-//	 		   which would be taken care by its child classes.
-// 
-/**
- * Base Account class. It implements all IAccount methods except two, deductFee and addInterest. 
- * This class has a few more utility abstract methods required for the account functionality. 
- * This class is marked as abstract. Both SavingsAccount and CheckingAccount extends this class.
- */
+//Description: Its the Base Account class. It implements all IAccount methods except two, deductFee and addInterest.This class has a 
+//			   few more utility abstract methods required for the account functionality.This class is marked as abstract. Both SavingsAccount and
+//		       CheckingAccount extends this class.          
+
 		
 package MidTerm;
 import java.text.NumberFormat;
@@ -17,7 +12,7 @@ import java.text.NumberFormat;
 //abstract class Account implementing interface IAccount
 public abstract class Account implements IAccount{
 	private double balance;
-	
+	private boolean flag=true;
 	//Default constructor to set the starting balance as 1000
 	public Account(){
 		balance=1000.0;		
@@ -53,11 +48,15 @@ public abstract class Account implements IAccount{
 	
 	//This method is invoked when the user is done with the transaction.This is to ensure that the deduction of fee and addition of interest
 	//is made just once at the end of transaction
-	public void finalize(boolean flag){
+	public void finalize(){
+		
+		//This check ensures that the deduction of fee and the addition of interest is done just once after the end of transaction
 		if(flag){
 			deductFee();
 			addInterest();
+			flag=false;
 		}
+		
 	}
 	
 	//Method to format the balance

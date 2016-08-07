@@ -1,41 +1,39 @@
 //Name: 	   Nupur Dixit
 //Instructor:  Bineet Sharma
 //Date: 	   Aug 6,2016
-//Description: This program is written so that can be used by a user who has the current and savings account. The user would be first shown the 
-//			   starting balance of both current and savings account which would be always $1000 as per requirement.Next he would be asked whether
-//			   he wants to withdraw or deposit money.Next prompt would be for from Current or Savings account.Next he would be asked to enter the 
-//		       amount.If the user wantes to continue then he needs to enter 'y' or 'Y' else 'n' or 'N' to end the transaction.
-//			   If he enters 'n' or 'N', the he would be shown the Monthly payment and fees and then the Final Balances in both the account.
+//Description: This program displays the feature which the user can use in order to perform transactions and finally see the balance in his
+//	           accounts.The user would be first shown the starting balance of both current and savings account which would be always $1000 
+//			   as per requirement.Next he would be asked whether he wants to withdraw or deposit money.Next prompt would be for from Current
+//	  	       or Savings account.Next he would be asked to enter the amount.If the user wants to continue then he needs to enter 'y' or 'Y' 
+//			   else 'n' or 'N' to end the transaction.If he enters 'n' or 'N', the he would be shown the Monthly payment and fees and then the 
+//		       Final Balances in both the account.
 //			   At any step if the user tries to enter anything not compliant with the requirements then would be thrown an error and would be
 //			   given a chance to re-enter correct choice.
 
 package MidTerm;
-import java.text.NumberFormat;
 import java.util.Scanner;
 
 public class UserApp {
 	
-	//Parent class referring to an object of child class
-	//Creating Account references for CheckingAccount and SavingsAccount objects.
+	//Creating Account references for CheckingAccount and SavingsAccount objects(Polymorphism)
 	static Account checking=new CheckingAccount();
 	static Account savings=new SavingsAccount();
-	
-	//Variable which is set to true when the transaction ends
-	static boolean  flagToEndTransaction=false;
 	
 	public static void main(String[] args) {
 		//This method would deal with user transactions
 		performTransactions();
 		
-		//If the user decides to end the transaction then call methods finalize of parent class(Account) and then call methods
+		//Once the user has finished all transactions then finalize method is called so that the fee is deducted and the interest is added
+		//to the balance.
+		
+		checking.finalize();
+		savings.finalize();
+				
 		//to print the monthly fees and interest rate and the final balance in both the accounts.
-		if(flagToEndTransaction)
-		{	
-			checking.finalize(flagToEndTransaction);
-			savings.finalize(flagToEndTransaction);
-			printFeeAndInterestEarned();
-			printFinalBalance();
-		}
+		
+		printFeeAndInterestEarned();
+		printFinalBalance();
+		
 	}
 	
 	public static void performTransactions(){
@@ -69,8 +67,9 @@ public class UserApp {
 			
 			System.out.println();
 			
-			//if the choice is c or C, then update the balance in the parent class for Checking account else update it for savings account
+			//if the choice is c or C, then perform operations on Checking account
 			if(choiceOfAcountType.equalsIgnoreCase("c")){
+				//If choice is w or W, then call method withdraw else deposit
 				if(choiceToWithdrawOrDeposit.equalsIgnoreCase("w")){
 					
 					checking.withdraw(amount);
@@ -80,9 +79,10 @@ public class UserApp {
 					checking.deposit(amount);
 				}
 			}
+			//if choice is s or S, then perform operations on savings account
 			else{
-				
-				if(choiceToWithdrawOrDeposit.equalsIgnoreCase("w")){			
+				//If choice is w or W, then call method withdraw else deposit
+				if(choiceToWithdrawOrDeposit.equalsIgnoreCase("w")){
 					savings.withdraw(amount);
 				}
 				else{
@@ -95,10 +95,6 @@ public class UserApp {
 			choice=Validator.getChoiceString(sc, "Continue? (y/n): ", "y", "n");
 			System.out.println();
 		}
-		
-		//The flag is set to true since the user has ended the transaction
-		flagToEndTransaction=true;
-		
 }
 	
 	//Method to print the formatted fees and interest payment
