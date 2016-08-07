@@ -6,7 +6,7 @@
 //		       CheckingAccount extends this class.          
 
 		
-package MidTerm;
+
 import java.text.NumberFormat;
 
 //abstract class Account implementing interface IAccount

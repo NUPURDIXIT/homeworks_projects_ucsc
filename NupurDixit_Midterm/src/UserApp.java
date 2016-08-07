@@ -10,7 +10,7 @@
 //			   At any step if the user tries to enter anything not compliant with the requirements then would be thrown an error and would be
 //			   given a chance to re-enter correct choice.
 
-package MidTerm;
+
 import java.util.Scanner;
 
 public class UserApp {
@@ -90,7 +90,6 @@ public class UserApp {
 				}
 			}
 			
-			
 			//user is prompted to enter whether to continue or not. this choice is validated in Validator class.
 			choice=Validator.getChoiceString(sc, "Continue? (y/n): ", "y", "n");
 			System.out.println();
@@ -99,21 +98,16 @@ public class UserApp {
 	
 	//Method to print the formatted fees and interest payment
 	public static void printFeeAndInterestEarned(){
-		
 		System.out.println("\nMonthly Payments and Fees");
-		
 		System.out.println("Checking fee:              "+checking.getFormattedFees()+"\n"+
 				           "Savings interest payment:  "+savings.getFormattedInterestPayment());
-		
 	}
 	
 	//Method to print the final balance in both the accounts
 	public static void printFinalBalance(){
-		
 		System.out.println("\nFinal Balances\n"
 							+ "Checking: "+checking.getFormattedBalance()+"\n"+
 							  "Savings:  "+savings.getFormattedBalance());
-	
 	}
 }
 

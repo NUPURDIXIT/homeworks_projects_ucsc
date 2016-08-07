@@ -3,14 +3,14 @@
 //Date: 	   Aug 6,2016
 //Description: This program is meant to validate the data entered by user.
 
-package MidTerm;
+
 
 import java.util.Scanner;
 
 public class Validator
 {
-	//This method is used to validate whether the choice entered by the user is amongst s1 or s2. If , not error is thrown and the user
-	//is again asked to enter the choice.this continues till the user enters correct choice.
+	//This method is used to validate whether the choice entered by the user is amongst s1 or s2. If not, error is thrown and the user
+	//is again asked to enter the choice.This continues till the user enters correct choice which is then returned.
 	
 	public static String getChoiceString(Scanner sc,String prompt,String s1,String s2){
 		boolean flag=false;
@@ -31,8 +31,8 @@ public class Validator
         return choice;
 	}
   
-	//This method ensure that the user enters a double value , if not then an error is thrown and the user is agian asked to enter the value
-	//of double type. This process continues till the user enter correct value.
+	//This method ensure that the user enters a double value , if not then an error is thrown and the user is again asked to enter the value
+	//of double type. This process continues till the user enter correct value which is then returned.
     public static double getDouble(Scanner sc, String prompt)
     {
         double d = 0;

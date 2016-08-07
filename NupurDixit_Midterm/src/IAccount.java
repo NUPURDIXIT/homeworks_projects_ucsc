@@ -4,7 +4,7 @@
 //Description: The project is about a Bank Transactional System,thus this interface ensures that the methods deposit,withdraw,addInterest,
 //	           deductFee,getFees and getInterestPayment gets declared in the class implementing it.
 
-package MidTerm;
+
 
 public interface IAccount {
 	public abstract double deposit(double amount);

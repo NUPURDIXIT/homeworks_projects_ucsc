@@ -6,7 +6,7 @@
 //			   balance to the latest.Minimum balance to maintain this type of account is 0, which is passed to the parent class for implementing the 
 //		       overdraft feature.
 
-package MidTerm;
+
 import java.text.NumberFormat;
 
 public class SavingsAccount extends Account {

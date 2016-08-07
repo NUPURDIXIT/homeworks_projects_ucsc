@@ -5,7 +5,7 @@
 //			   for this type of account only.It also has a feature of maintaining minimum balance of $1, thus this value is sent to the parent
 //		       class which utilizes it to know amount any overdraft.
 
-package MidTerm;
+
 import java.text.NumberFormat;
 
 //Child class CheckingAccount extending Account which is now its parent class
