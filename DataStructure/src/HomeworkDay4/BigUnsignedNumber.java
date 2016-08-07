@@ -93,7 +93,7 @@ class BigUnsignedNumber {
 		int sum = 0;
 
 		BigUnsignedNumber num = new BigUnsignedNumber();
-		System.out.println("i is: " + i);
+		
 		num.d.setCharAtIndex(i, '\0');
 		while (i > 0 || j > 0) {
 			sum = 0;
@@ -146,68 +146,52 @@ class BigUnsignedNumber {
 	}
 
 	public BigUnsignedNumber mult(BigUnsignedNumber num) {
-		
-		//This will keep the output. Old school time method of multiplication
-		//each multiplication output will be added to this following the school time methodology
 		BigUnsignedNumber output = new BigUnsignedNumber();
-		//Initialized it with '0's
 		for (int i = 0; i < this.d.size() + num.d.size(); i++) {
 			output.d.setCharAtIndex(i, '0');
 		}
-		//Keeping track of index in output. Once multiplication is done, will reverse the output.
-		//that will be our answer
 		int outputIndex = 0;
+		int maxOutputIndex = 0;
 		
-		//from AxB (param 'num' will act as B in our logic)
-		//So looping through num from right to left
-		for (int numIndex = num.d.size() - 1; numIndex >= 0; numIndex--) {
-			int numDigit = num.getDigit(numIndex);
-			//offset is the count of "x", we used to add in school days 
-			int offset = num.d.size() - 1 - numIndex;
-			//ouputIndex start from offset (remember we are filling output in reverse order)
+		for (int index = num.d.size() - 1; index >= 0; index--) {
+			int digit = num.getDigit(index);
+			int offset = num.d.size() - 1 - index;
 			outputIndex = offset;
-			
-			//Carry got from multiplication of two digits
-			int multCarry = 0;
-			//Carry got from summation of two multiplications
+			int carry = 0;
 			int sumCarry = 0;
-			for (int thisIndex = d.size() - 1; thisIndex >= 0; thisIndex--) {
-				int thisDigit = getDigit(thisIndex);
+			for (int index1 = d.size() - 1; index1 >= 0; index1--) {
+				int digit1 = getDigit(index1);
+				
+				int temp = digit * digit1 + carry;
+				int toAdd = temp % 10;
+				carry = temp / 10;
 
-				//A[i]xB[j] + anyCarryFromPreviousMultiplication
-				int digitsMult = numDigit * thisDigit + multCarry;
-				//value to be added to output 
-				int multAdd = digitsMult % 10;
-				//value to be carried over
-				multCarry = digitsMult / 10;
+				int sum = output.getDigit(outputIndex) + toAdd + sumCarry;
 
-				int sum = output.getDigit(outputIndex) + multAdd + sumCarry;
-
-				int sumAdd = sum % 10;
+				int temp1 = sum % 10;
 				sumCarry = sum / 10;
-				output.setDigit(outputIndex, sumAdd);
-				//Handling for last index (in the last index of each inner loop, nothing will go to carry)
-				//multCarry and sumCarry of last the index, will be directly added to the next digit
-				if (thisIndex == 0) {
-					int thisLastDigitCarries = output.getDigit(outputIndex + 1) + multCarry + sumCarry;
-					if(thisLastDigitCarries > 0){
+				
+				output.setDigit(outputIndex, temp1);
+				
+				if (index1 == 0) {
+					int temp3 = output.getDigit(outputIndex + 1) + carry + sumCarry;
+					if(temp3 > 0){
 						outputIndex += 1;
-						output.setDigit(outputIndex, thisLastDigitCarries % 10);
-						if(thisLastDigitCarries > 10){
+						output.setDigit(outputIndex, temp3 % 10);
+						if(temp3 > 10){
 							outputIndex += 1;
-							output.setDigit(outputIndex, thisLastDigitCarries / 10);
+							output.setDigit(outputIndex, temp3 / 10);
 							
 						}
 					}
+				}
+				if (outputIndex > maxOutputIndex) {
+					maxOutputIndex = outputIndex;
 				}
 				outputIndex++;
 
 			}
 		}
-		
-		//TODO: couldn't find the exact reason, why extra '0' was appended sometimes.
-		//However quick fix for this is to, iterate from the end of output.
-		//And find correct position for added end character.
 		
 		for(int i = outputIndex; i>=1;i--){
 			if(output.getDigit(i) == 0){
@@ -216,12 +200,12 @@ class BigUnsignedNumber {
 				break;
 			}
 		}
-		
 		output.d.setCharAtIndex(outputIndex+1, '\0');
-		//output is prepared but in reverse order, so reversing it to get final result
 		output.d.reverse();
 		return output;
 	}
+	
+	
 
 	public static BigUnsignedNumber factorial(int num){
 		BigUnsignedNumber one=new BigUnsignedNumber('1');
@@ -249,19 +233,6 @@ class BigUnsignedNumber {
 
 	public static void main(String[] args) {
 		System.out.println("BigUnsignedNumber.java");
-		/*BigUnsignedNumber a = new BigUnsignedNumber(99);
-		BigUnsignedNumber b = new BigUnsignedNumber(99);
-		a.pLn("a = ");
-		b.pLn("b = ");
-		BigUnsignedNumber c = a.add(b);
-		c.pLn("a + b =  c = ");
-		System.out.println(c.d.size());
-		BigUnsignedNumber p = BigUnsignedNumber.factorial(5) ;
-		p.pLn("p is:");
-		// BigUnsignedNumber ba = new BigUnsignedNumber(240) ;
-		// BigUnsignedNumber bb = new BigUnsignedNumber(150) ;
-		// BigUnsignedNumber mm = ba.mult(bb) ;
-		// mm.pLn("mm=: ");*/
 		testBench();
 		System.out.println("Done");
 	}

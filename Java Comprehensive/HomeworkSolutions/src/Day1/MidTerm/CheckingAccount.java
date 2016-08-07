@@ -1,6 +1,14 @@
+//Name: 	   Nupur Dixit
+//Instructor:  Bineet Sharma
+//Date: 	   Aug 6,2016
+//Description: This program is the child class of Accounts class. It has a fixed checking fee of $1 which is charged at the end of transaction
+//			   for this type of account only.It also has a feature of maintaining minimum balance of $1, thus this value is sent to the parent
+//		       class which utilizes it to know amount any overdraft.
+
 package MidTerm;
 import java.text.NumberFormat;
 
+//Child class CheckingAccount extending Account which is now its parent class
 public class CheckingAccount extends Account {
 	
 	//Instance variables
@@ -20,7 +28,7 @@ public class CheckingAccount extends Account {
 		balanceAfterFeeDeduction=0.0;
 	}
 	
-	//This method returns the fee to be dedcuted
+	//This method returns the fee to be deducted
 	public double getFees(){
 		return fee;
 	}

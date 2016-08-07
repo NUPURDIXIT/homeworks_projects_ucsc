@@ -82,26 +82,26 @@ class BigUnsignedNumberTester {
       c.pLn("c = ") ;
       d.pLn("d = ") ;
       u.myassert(d.isEqual(c)) ;
-     // System.out.println("Number of digits in a b and d = " + a.size()  + "  " + b.size() + "   " + c.size()) ;
+     System.out.println("Number of digits in a b and d = " + a.size()  + "  " + b.size() + "   " + c.size()) ;
     }
   }
   
    private static void testRandom() {
-	   int m = 1000 ;
-	     int max = (1 << 15) ;
-	     Random r = new Random();
-	     for (int i = 0 ; i < m ; ++i) {
-	       //System.out.println("i = " + i) ;
-	       int a = RandomInt.getRandomInt(r, 0, max);
-	       int b = RandomInt.getRandomInt(r, 0, max);
-	       BigUnsignedNumber ba = new BigUnsignedNumber(a) ;
-	       BigUnsignedNumber bb = new BigUnsignedNumber(b) ;
-	       BigUnsignedNumber ma = ba.add(bb) ;
-	       u.myassert(ma.isEqual(a+b)) ;
-	       BigUnsignedNumber mm = ba.mult(bb) ;
-	       u.myassert(mm.isEqual(a*b)) ;
-	     }
-	     System.out.println("Random addition and multiplication on " + m + " numbers passed") ;
+     int m = 1000 ;
+     int max = (1 << 15) ;
+     Random r = new Random();
+     for (int i = 0 ; i < m ; ++i) {
+       //System.out.println("i = " + i) ;
+       int a = RandomInt.getRandomInt(r, 0, max);
+       int b = RandomInt.getRandomInt(r, 0, max);
+       BigUnsignedNumber ba = new BigUnsignedNumber(a) ;
+       BigUnsignedNumber bb = new BigUnsignedNumber(b) ;
+       BigUnsignedNumber ma = ba.add(bb) ;
+       u.myassert(ma.isEqual(a+b)) ;
+       BigUnsignedNumber mm = ba.mult(bb) ;
+       u.myassert(mm.isEqual(a*b)) ;
+     }
+     System.out.println("Random addition and multiplication on " + m + " numbers passed") ;
    }
   
   private static void testFact() {

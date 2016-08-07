@@ -1,3 +1,16 @@
+//Name: 	   Nupur Dixit
+//Instructor:  Bineet Sharma
+//Date: 	   Aug 6,2016
+//Description: This program is the parent class for Savings and Current Account classes. It sets the starting balance,takes care of overdraft feature,
+//             Updates the balance as per withdrawal/deposit,has getter functions to get the formatted balance and has many abstract classes
+//	 		   which would be taken care by its child classes.
+// 
+/**
+ * Base Account class. It implements all IAccount methods except two, deductFee and addInterest. 
+ * This class has a few more utility abstract methods required for the account functionality. 
+ * This class is marked as abstract. Both SavingsAccount and CheckingAccount extends this class.
+ */
+		
 package MidTerm;
 import java.text.NumberFormat;
 
@@ -24,8 +37,8 @@ public abstract class Account implements IAccount{
 	//This method updates the balance when some money is withdrawn by the user. It does not allow for any overdraft thus throws an error if any.
 	//minimumBalance is returned via method minimumBalance() as $1 for Checking account and 0 for Savings account.
 	public double withdraw(double amount){
-		if(balance-amount<minimumBalance()){
-			System.out.println("Overdraft is not allowed.You need to maintain a minimum balance of $1 for Checking and $0 for savings account'\n ");
+		if(balance-amount < minimumBalance()){
+			System.out.println("Overdraft is not allowed.You need to maintain a minimum balance of $1 for Checking and $0 for savings account\n ");
 		}
 		else{
 			balance=balance-amount;

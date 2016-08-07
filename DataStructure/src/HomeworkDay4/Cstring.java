@@ -35,7 +35,7 @@ class Cstring {
 		char[] chArray=str.toCharArray();
 		int chArrayLength=chArray.length;
 		for(int i=0;i<chArray.length;i++){
-			//System.out.println("chArray["+i+"] is: "+chArray[i]);
+			
 			d.set(i,chArray[i]);
 		}
 		d.set(chArrayLength, '\0');
@@ -45,7 +45,7 @@ class Cstring {
 	public Cstring(char[] ch){
 		this();
 		for(int i=0;i<ch.length;i++){
-			//System.out.println("chArray["+i+"] is: "+chArray[i]);
+			
 			d.set(i,ch[i]);
 		}
 		d.set(ch.length, '\0');
@@ -67,11 +67,7 @@ class Cstring {
   
   
   public CharArray getCharArray(){
-//	  char[] ch=new char[c.d.size()];
-//	  for(int i=0;i<c.d.size();i++){
-//		  ch[i]=c.d.get(i);
-//	  }
-//	  return ch;
+
 	  return this.d;
   }
   
@@ -112,9 +108,9 @@ class Cstring {
   
   public Cstring add(Cstring b){
 		int objLength=this.d.size();
-		//System.out.println("objlength is: "+objLength);
+		
 		int bLength=b.d.size();
-		//System.out.println("blength is: "+bLength);
+		
 		char[] concatArray=new char[objLength+bLength];
 		for(int i=0;i<objLength;i++){
 			concatArray[i]=this.d.get(i);
@@ -174,12 +170,7 @@ class Cstring {
 		 
 	  }
   
-	  
-	 /* public boolean isEqual(String str){
-		  Cstring b=new Cstring(str);
-		  return this.isEqual(b);
-		  
-	  }*/
+	
   
   //CANNOT CHANGE ANYTHING BELOW 
   private static void testBasic() {

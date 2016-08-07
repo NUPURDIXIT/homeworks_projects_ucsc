@@ -1,3 +1,11 @@
+//Name: 	   Nupur Dixit
+//Instructor:  Bineet Sharma
+//Date: 	   Aug 6,2016
+//Description: This program is the child class of Accounts class. It has a Interest rate of 1% which is charged at the end of transaction
+//			   for this type of account only.It calculates the updated balance after applying the rate and calls parent class to which sets the
+//			   balance.Minimum balance to maintain this type of account is 0, which is passed to the parent class for implementing the 
+//		       overdraft feature.
+
 package MidTerm;
 import java.text.NumberFormat;
 

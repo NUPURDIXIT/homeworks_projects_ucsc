@@ -1,37 +1,18 @@
+//Name: 	   Nupur Dixit
+//Instructor:  Bineet Sharma
+//Date: 	   Aug 6,2016
+//Description: This program is meant to validate the data entered by user.
+
 package MidTerm;
-//package day3;
+
 import java.util.Scanner;
 
 public class Validator
 {
-    public static String getString(Scanner sc, String prompt)
-    {
-    	System.out.print(prompt);
-        String s = sc.next();  // read user entry
-        sc.nextLine();  // discard any other data entered on the line
-        return s;
-    }
-    
-    public static String getChoice(Scanner sc, String prompt)
-    {
-    	boolean flag=false;
-    	String choice=null;
-    	while(flag==false){
-    		System.out.print(prompt);
-	        choice = sc.next();  // read user entry
-	        
-	        sc.nextLine();  // discard any other data entered on the line
-	        if(choice.equalsIgnoreCase("y") || choice.equalsIgnoreCase("n") ){
-	        	flag=true;
-	        }
-	        else{
-	        	System.out.println("Please enter only 'y' or 'n' to continue.");
-	        }
-    	}
-        return choice;
-    }
-    
-    public static String getChoiceString(Scanner sc,String prompt,String s1,String s2){
+	//This method is used to validate whether the choice entered by the user is amongst s1 or s2. If , not error is thrown and the user
+	//is again asked to enter the choice.this continues till the user enters correct choice.
+	
+	public static String getChoiceString(Scanner sc,String prompt,String s1,String s2){
 		boolean flag=false;
     	String choice=null;
     	while(flag==false){
@@ -49,48 +30,9 @@ public class Validator
     	}
         return choice;
 	}
-    
-    public static int getInt(Scanner sc, String prompt)
-    {
-        int i = 0;
-        boolean isValid = false;
-        while (isValid == false)
-        {
-            System.out.print(prompt);
-            if (sc.hasNextInt())
-            {
-                i = sc.nextInt();
-                isValid = true;
-            }
-            else
-            {
-                System.out.println("Error! Invalid integer value. Try again.");
-            }
-            sc.nextLine();  // discard any other data entered on the line
-        }
-        return i;
-    }
-
-    public static int getInt(Scanner sc, String prompt,
-                              int min, int max)
-    {
-        int i = 0;
-        boolean isValid = false;
-        while (isValid == false)
-        {
-            i = getInt(sc, prompt);  //utilize the method already written
-            if (i <= min)
-                System.out.println(
-                    "Error! Number must be greater than " + min + ".");
-            else if (i >= max)
-                System.out.println(
-                    "Error! Number must be less than " + max + ".");
-            else
-                isValid = true;
-        }
-        return i;
-    }
-
+  
+	//This method ensure that the user enters a double value , if not then an error is thrown and the user is agian asked to enter the value
+	//of double type. This process continues till the user enter correct value.
     public static double getDouble(Scanner sc, String prompt)
     {
         double d = 0;
@@ -108,26 +50,6 @@ public class Validator
                 System.out.println("Error! Invalid decimal value. Try again.");
             }
             sc.nextLine();  // discard any other data entered on the line
-        }
-        return d;
-    }
-
-    public static double getDouble(Scanner sc, String prompt,
-                                  double min, double max)
-    {
-        double d = 0;
-        boolean isValid = false;
-        while (isValid == false)
-        {
-            d = getDouble(sc, prompt);  //use the method already written
-            if (d <= min)
-                System.out.println(
-                    "Error! Number must be greater than " + min + ".");
-            else if (d >= max)
-                System.out.println(
-                    "Error! Number must be less than " + max + ".");
-            else
-                isValid = true;
         }
         return d;
     }

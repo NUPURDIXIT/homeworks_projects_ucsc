@@ -1,7 +1,6 @@
 package Day3;
 import java.util.Scanner;
 
-import MidTerm.Validator;
 
 public class NumberToWords {
 	int numberToConvert;
