@@ -1,3 +1,4 @@
+package HomeworkDay5;
 
 
 /**
@@ -42,13 +43,32 @@ public class IntSlist2 {
    */
   public int size() {
     //WRITE CODE
+	  node t=first;
+	  int count=0;
+	  while(t!=null){
+		  count++;
+		  t=t.next;
+	  }
+	  return count;
   }
 
   /*
    * Appends int x to the end of this list.
    */
   public node add(int x,int y, node last) {
-    //WRITE CODE
+	//WRITE CODE
+	  node n=new node(x,y);
+	  if(first!=null){
+		  while(first.next!=null){
+			  first=first.next;
+		  }
+		  first.next=n;
+	  }
+	  else{
+		  first=n;
+	  }
+	  n.next=null;
+    //incSize();
     return n ;
   }
   
@@ -98,6 +118,22 @@ public class IntSlist2 {
         next = next.next;
       }
     }
+  }
+  
+  public void pLn(String str){
+	  System.out.println(str);
+	  node n=first;
+	  while(n!=null){
+		  System.out.println(n.d);
+		  if(n.next==null){
+			  System.out.println("->NIL");
+		  }
+		  else{
+			  System.out.println("->");
+		  }
+		  n=n.next;
+	  }
+	  System.out.println("");
   }
   
   /* Factory method. Build an slist from an array */
