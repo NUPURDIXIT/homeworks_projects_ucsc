@@ -31,6 +31,7 @@ abstract class SlistSort extends IntSlist2{
     }
     sort(ascend); //THIS CODE IS WRITTEN BY USER
     int ns = a.size();
+   
     u.myassert(os == ns);
     if (ascend) {
       a.assertSlistInAscending() ;

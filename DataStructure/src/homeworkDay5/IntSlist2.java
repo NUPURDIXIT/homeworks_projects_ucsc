@@ -26,7 +26,7 @@ public class IntSlist2 {
     protected final int d; //You cannot change d or t
     protected final int t ;//Used for testing stable sort
     protected node next; //You should manipulate only next
-
+       
     protected node(int x,int y) {
       d = x;
       t = y ;
@@ -59,16 +59,12 @@ public class IntSlist2 {
 	//WRITE CODE
 	  node n=new node(x,y);
 	  if(first!=null){
-		  while(first.next!=null){
-			  first=first.next;
-		  }
-		  first.next=n;
+		  last.next=n;
 	  }
 	  else{
 		  first=n;
 	  }
-	  n.next=null;
-    //incSize();
+	  last=n;
     return n ;
   }
   
@@ -124,18 +120,46 @@ public class IntSlist2 {
 	  System.out.println(str);
 	  node n=first;
 	  while(n!=null){
-		  System.out.println(n.d);
+		  System.out.print(n.d);
 		  if(n.next==null){
-			  System.out.println("->NIL");
+			  System.out.print("->NIL");
 		  }
 		  else{
-			  System.out.println("->");
+			  System.out.print("->");
 		  }
 		  n=n.next;
 	  }
 	  System.out.println("");
   }
   
+  public void pLn(){
+	  node n=first;
+	  while(n!=null){
+		  System.out.print(n.d);
+		  if(n.next==null){
+			  System.out.print("->NIL");
+		  }
+		  else{
+			  System.out.print("->");
+		  }
+		  n=n.next;
+	  }
+	  System.out.println("");
+  }
+  
+  
+  public void reverse(){
+	  node currentNode=first;
+	  node nextNode=null;
+	  node prevNode=null;
+	  while(currentNode!=null){
+		  nextNode=currentNode.next;
+		  currentNode.next=prevNode;
+		  prevNode=currentNode;
+		  currentNode=nextNode;
+	  }
+	  first=prevNode;
+  	}
   /* Factory method. Build an slist from an array */
   //CANNOT CHANGE ROUTINE BELOW
   public static IntSlist2 buildSlist(int [] a) {
@@ -156,6 +180,8 @@ public class IntSlist2 {
       last = l.add(i,i,last);
     }
     l.pLn("After adding 8 elements: ");
+//    l.reverse();
+//    l.pLn("Reversed list is:");
     int [] a = {9, 6, 7, 10};
     IntSlist2 l2 = IntSlist2.buildSlist(a) ;
     l2.pLn("l2: ");
