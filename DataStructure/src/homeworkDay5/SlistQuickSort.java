@@ -17,30 +17,9 @@ class SlistQuickSort extends SlistSort {
 	@Override
 	protected void sort(boolean ascend) {
 		// WRITE CODE HERE
-//		 print(a.first);
 		node root = a.first;
 		node temp = quickSort(root, root, null);
-
 		this.a.first = temp;
-
-//		 print(temp);
-	}
-
-	// public static Node solution(Node root){
-	// return quickSort(root, root, null);
-	// }
-
-	private int median(int x, int y, int z){
-		int tempMax = Math.max(x, y);
-		return Math.min(tempMax, z);
-	}
-	
-	private void print(node n) {
-		while (n != null) {
-			System.out.print(n.d + ":" + n.t + " ");
-			n = n.next;
-		}
-		System.out.println();
 	}
 
 	public node quickSort(node root, node start, node end) {
@@ -48,15 +27,11 @@ class SlistQuickSort extends SlistSort {
 			return start;
 
 		node[] nodes = partition(start, end);
-		// if(nodes[0] != null) nodes[0].print("Before Pivot: ");
-		// if(nodes[1] != null) nodes[1].print("From Pivot: ");
 		numRecursion++;
 		node start1 = quickSort(root, nodes[0], nodes[1]);
-		// start1.print();
 		numRecursion++;
 		node start2 = quickSort(root, nodes[1].next, end);
 		nodes[1].next = start2;
-		// print(start1);
 		return start1;
 	}
 
@@ -66,7 +41,6 @@ class SlistQuickSort extends SlistSort {
 		node pivot = start;
 		pivot = findPivot(start, end);
 		int x = pivot.d;
-//		System.out.println("Pivot: "+x);
 		while (start != null && start != end) {
 			if(start == pivot){
 				numCompare++;
@@ -128,7 +102,6 @@ class SlistQuickSort extends SlistSort {
 			last = last.next.next;
 		}
 		
-//		System.out.println(String.format("Pivot candidates: %d, %d, %d", first.d, mid.d, last.d));
 		numCompare++;
 		if(first.d < last.d){
 			numCompare++;

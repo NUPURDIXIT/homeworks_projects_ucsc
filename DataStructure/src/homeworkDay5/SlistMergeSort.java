@@ -32,36 +32,26 @@ class SlistMergeSort extends SlistSort{
 	 return merge(n, laterHalf);
   }
 
-//  private void print(node n){
-//	  while(n != null){
-//		  System.out.print(n.d+" ");
-//		  n = n.next;
-//	  }
-//	  System.out.println();
-//  }
+
   private node merge(node a,node b){
-	 // System.out.println("Merge");
-	  //print(a);
-	  //print(b);
-	  
-	  //node t=null;
 	  node last=null;
 	  node first = null;
 	  while(a!=null && b!=null){
 		  node toAdd;
 		  numCompare++;
-		  numSwap++;
+		  
 		  if(a.d<=b.d){
-			 // temp=b;
+			  numSwap++;
 			  toAdd=a;
 			  a=a.next;
 		  }
 		  else{
-			 // temp=a;
+			  numSwap++;
 			  toAdd=b;
 			  b=b.next;
 			  
 		  }
+		  
 		  if(last == null){
 			  last = toAdd;
 			  first = last;
@@ -70,14 +60,16 @@ class SlistMergeSort extends SlistSort{
 			  last=toAdd;
 		  }
 	  }
+	  
 	  if(a == null){
+		  numSwap++;
 		  last.next = b;
 	  }
 	  
 	  if(b == null){
+		  numSwap++;
 		  last.next = a;
 	  }
-	  //print(first);
 	  return first;
  }
   
@@ -85,6 +77,7 @@ class SlistMergeSort extends SlistSort{
 	  if(n==null){ return n;}
 	  node slow,fast;
 	  slow=fast=n;
+	  numCompare++;
 	  while(fast.next!=null && fast.next.next!=null){
 		  slow=slow.next;
 		  fast=fast.next.next;
@@ -97,24 +90,7 @@ class SlistMergeSort extends SlistSort{
   public static void main(String[] args) {
     System.out.println("SlistMergeSort.java");
     SlistMergeSort u = new SlistMergeSort() ;
-//  int [] b={6,2,3,4};
-//  IntSlist2 l2 =IntSlist2.buildSlist(b) ;
-//
-//    SlistSort u = new SlistMergeSort();
-   // u.a = l2;
     u.testBench();
-   
-//    int [] a = {6,2,3,4};
-  //  u.sort(true);
-//    node n=u.merge(l1.first,l2.first);
-//    
-//    while(n!=null){
-//    	
-//    	System.out.println(n.d);
-//    	n=n.next;
-//    	
-//    }
-//    u.a.pLn();
   }
 }
 

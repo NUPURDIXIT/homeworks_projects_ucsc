@@ -180,8 +180,6 @@ public class IntSlist2 {
       last = l.add(i,i,last);
     }
     l.pLn("After adding 8 elements: ");
-//    l.reverse();
-//    l.pLn("Reversed list is:");
     int [] a = {9, 6, 7, 10};
     IntSlist2 l2 = IntSlist2.buildSlist(a) ;
     l2.pLn("l2: ");
