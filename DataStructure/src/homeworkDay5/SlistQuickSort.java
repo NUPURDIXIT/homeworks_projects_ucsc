@@ -69,12 +69,14 @@ class SlistQuickSort extends SlistSort {
 //		System.out.println("Pivot: "+x);
 		while (start != null && start != end) {
 			if(start == pivot){
+				numCompare++;
 				start = start.next;
 				continue;
 			}
 			
 			numCompare++;
 			if (start.d < x || (start.d == x && start.t < pivot.t)) {
+				numCompare++;
 				if (lowRoot == null) {
 					lowRoot = start;
 				} else {
@@ -83,6 +85,7 @@ class SlistQuickSort extends SlistSort {
 				}
 				lowList = start;
 			} else {
+				numCompare++;
 				if (highRoot == null) {
 					highRoot = start;
 				} else {
@@ -120,18 +123,22 @@ class SlistQuickSort extends SlistSort {
 		node last = start;
 		
 		while(last != end && last.next != end && last.next.next != end){
+			numCompare++;
 			mid = mid.next;
 			last = last.next.next;
 		}
 		
 //		System.out.println(String.format("Pivot candidates: %d, %d, %d", first.d, mid.d, last.d));
+		numCompare++;
 		if(first.d < last.d){
+			numCompare++;
 			if(first.d > mid.d){
 				return first;
 			}else{
 				return mid;
 			}
 		}else{
+			numCompare++;
 			if(last.d > mid.d){
 				return last;
 			}else{
