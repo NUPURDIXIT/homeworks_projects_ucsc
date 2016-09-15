@@ -1,0 +1,53 @@
+		.main{
+			background-color:yellow;
+		}
+        .heading h1{
+            color:purple;
+            padding-left:20px;
+			text-align:center;
+			background-color:pink;
+        }
+		
+		h3{
+			
+            color:black;
+            padding-left:20px;
+        }
+        .heading1{
+            color:black;
+            padding-left:40px;
+        }
+        .label{
+            width:30%;
+            text-align: left;
+            display: inline-block;
+        }
+        .input{
+            width:30%;
+            text-align: left;
+        }
+        .output{
+            display:block;
+            width:70%;
+            float:right;
+            text-align: left;
+        }
+        .label-input{
+            padding: 10px;
+        }
+        .errors{
+            color:red;
+            text-align: right;
+        }
+
+        .sponsors{
+            display: inline-block;
+            width:60%;
+            text-align: left;
+        }
+
+        .graph{
+            display:inline-block;
+            float:right;
+
+        }
