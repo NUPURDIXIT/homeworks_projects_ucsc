@@ -1,20 +1,21 @@
 		.main{
-			background-color:yellow;
+			background-image:url(./image.jpg);
+			background-size:cover;
 		}
         .heading h1{
             color:purple;
             padding-left:20px;
 			text-align:center;
-			background-color:pink;
+			
         }
 		
 		h3{
 			
-            color:black;
+            color:white;
             padding-left:20px;
         }
         .heading1{
-            color:black;
+            color:white;
             padding-left:40px;
         }
         .label{
