@@ -1,0 +1,87 @@
+body{
+	font:0.875em/1.2em "Times New Roman", Times, serif;/*Verdana,Arial, sans-serif;*/
+	margin:0;
+	padding:0;
+	background:url(./watercolor3.jpg);
+}
+
+
+#wrapper{
+	background:#20b2aa;
+	border-bottom:1px solid #008080;
+	margin:0;
+}
+header{
+	/*background:#20b2aa;*/
+	text-align:center;
+	font-size:1.6em;
+	padding-left:0;
+	float:left;
+	margin-top:0;
+	
+}
+#wrapper #bio h3{
+	/*float:right;*/
+	text-align:right;
+	color:#fff;
+	padding:1em 2em 0 ;
+	line-height:0.5em;
+	margin-left:20em;
+	margin-top:0;
+	
+}
+
+
+#email{
+	font:0.875em "Times New Roman", Times, serif;
+	color:#ffb3b3;
+}
+header h1{
+
+	padding:1.5em 1em 1em 1em;
+	margin:0 auto;
+	color:#fff;
+	text-align:center;
+	
+}
+
+h2{
+	font-size:1.4em;
+	color:#008B8B;
+}
+h3{
+	color:#20b2aa;
+}
+
+#content{
+	width:
+	background:pink;
+}
+
+#content ul li{
+	display:block;
+	/*float:left;*/
+	padding:2em 2em 2em 1em;
+	border-bottom:1px dotted #333;
+	color:#008B8B;/*#20b2aa;*/
+	
+	
+}
+
+span{
+	font-weight:normal;
+	font:0.875em "Times New Roman", Times, serif;
+	color:#008B8B;
+}
+
+
+
+a{
+	
+	color:#ffb3b3;
+	font:0.875em "Times New Roman", Times, serif;
+}
+
+a:hover, a:focus{
+	font-size:1em;
+}
