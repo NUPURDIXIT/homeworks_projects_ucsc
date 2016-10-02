@@ -6,11 +6,12 @@
 	<link rel="stylesheet" href="loan.css" type="text/css">
 </head>
 <body>
-<div class="heading">
-	<h1><span> Loan Calulator </span></h1>
-</div>
+<header>
+	<h1>Loan Calculator</h1>
+</header>
+<div id="wrapper">
 <div>
-    <h3><span>   Enter Loan Data: </span></h3>
+		<h3> Enter Loan Data: </h3>
 </div>
 <div class="main">
     <form>
@@ -70,7 +71,7 @@
 
         <div class="label-input">
             <span class="label">
-                <label><b>Approximate Payments:</b></label>
+                <label><h3>Approximate Payments:</h3></label>
             </span>
             <span class="input">
                 <input type="button" value="Calculate" onclick="calculate()">
@@ -103,9 +104,9 @@
             </span>
 
         </div>
-        <div class=label-input>
+        <div class="label-input">
             <span class="heading1">
-                <label><b>Sponsors:</b></label>
+                <label><h3>Sponsors:</h3></label>
             </span>
             <span class="output">
                 <label> Apply for your loan with one of these fine lenders:</label><br>
@@ -121,6 +122,7 @@
 
         
     </form>
+</div>
 </div>
 <script src="LoanCalculator.js"></script>
 </body>
