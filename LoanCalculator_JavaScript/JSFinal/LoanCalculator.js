@@ -255,7 +255,7 @@ function getLenders(loanAmount,AnnualInterest,rePayYears,zipcode){
             document.getElementById('sponsors').innerHTML=output
         }
 
-    req.open('GET','http://nupurdixit.us/loan.php',true);
+    req.open('GET','/loan.php',true);
     req.send();
 }
     
